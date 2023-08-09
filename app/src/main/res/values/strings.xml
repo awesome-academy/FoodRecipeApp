@@ -10,5 +10,10 @@
     <string name="slogan_content_2">Experience the pleasure of delicious meals for your self</string>
     <string name="slogan_3">Let\'s Cooking</string>
     <string name="slogan_content_3">Find best recipes for cooking</string>
+    <string name="action_home">Home</string>
+    <string name="action_favourite">Favourite</string>
+    <string name="action_setting">Setting</string>
     <string name="find_best_recipes_for_cooking">Find Best Recipes For Cooking</string>
+    <string name="favourites_recipes">Favourites Recipes</string>
+    <string name="settings">Settings</string>
 </resources>

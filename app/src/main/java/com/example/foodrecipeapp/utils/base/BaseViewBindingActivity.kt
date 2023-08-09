@@ -10,13 +10,13 @@ abstract class BaseViewBindingActivity<T : ViewBinding> : AppCompatActivity() {
     protected val binding: T
         get() = mBinding!!
 
-    abstract fun createBinding(): T
+    abstract fun createBindingActivity(): T
     abstract fun initView()
     abstract fun initData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = createBinding()
+        mBinding = createBindingActivity()
         setContentView(binding.root)
         initData()
         initView()
