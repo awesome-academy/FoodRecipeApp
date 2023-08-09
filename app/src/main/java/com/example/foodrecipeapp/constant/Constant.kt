@@ -1,0 +1,10 @@
+package com.example.foodrecipeapp.constant
+
+import com.example.foodrecipeapp.BuildConfig
+
+object Constant {
+    const val BASE_URL = BuildConfig.FOOD_RECIPE_BASE_URL
+    const val BASE_API_KEY = BuildConfig.FOOD_RECIPE_API_KEY
+    const val BASE_URL_RECIPE = BuildConfig.BASE_URL_RECIPE
+    const val BASE_URL_FOOD_INGREDIENT = BuildConfig.BASE_URL_FOOD_INGREDIENT
+}
