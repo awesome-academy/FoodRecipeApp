@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FoodRecipeApp</string>
+    <string name="next">Next</string>
+    <string name="skip_intro">Skip Intro</string>
+    <string name="get_started">Get Started</string>
+    <string name="logo_description">50K+ Premium Recipe</string>
+    <string name="slogan_1">Discover Delightful Recipes</string>
+    <string name="slogan_content_1">Explore a world of mouthwatering dishes and unleash your inner chef</string>
+    <string name="slogan_2">Embrace the Joy of Cooking</string>
+    <string name="slogan_content_2">Experience the pleasure of delicious meals for your self</string>
+    <string name="slogan_3">Let\'s Cooking</string>
+    <string name="slogan_content_3">Find best recipes for cooking</string>
+    <string name="find_best_recipes_for_cooking">Find Best Recipes For Cooking</string>
+</resources>
