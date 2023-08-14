@@ -1,7 +1,6 @@
 package com.example.foodrecipeapp.screen.settings
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.foodrecipeapp.databinding.FragmentSettingBinding
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
@@ -15,12 +14,12 @@ class SettingFragment : BaseViewBindingFragment<FragmentSettingBinding>() {
         return FragmentSettingBinding.inflate(inflater, container, false)
     }
 
-    override fun initView(view: View?) {
-//        TODO("Not yet implemented")
+    override fun initView() {
+        // TODO("Not yet implemented")
     }
 
     override fun initData() {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     companion object {

@@ -41,7 +41,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     }
 
     override fun initData() {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     private fun getFragmentList(): List<Fragment> {

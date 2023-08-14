@@ -16,7 +16,7 @@ class RecipeRepo private constructor(
         local?.getRecipesLocal(contentResolver, listener)
     }
 
-    override fun getRecipesRemote(listener: OnResultListener<MutableList<Recipe>>) {
+    override fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>) {
         remote?.getRecipesRemote(listener)
     }
 

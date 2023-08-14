@@ -18,7 +18,7 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
         container: ViewGroup?
     ): T
 
-    abstract fun initView(view: View?)
+    abstract fun initView()
     abstract fun initData()
 
     override fun onCreateView(
@@ -27,13 +27,13 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = createBindingFragment(inflater, container)
-        initView(mBinding?.root)
 
         return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initData()
     }
 

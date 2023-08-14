@@ -2,6 +2,7 @@ package com.example.foodrecipeapp.data.repo.source
 
 import android.content.ContentResolver
 import com.example.foodrecipeapp.data.model.Recipe
+import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.listener.OnResultListener
 
 interface RecipeDataSource {
@@ -16,6 +17,6 @@ interface RecipeDataSource {
      * Remote
      */
     interface Remote {
-        fun getRecipesRemote(listener: OnResultListener<MutableList<Recipe>>)
+        fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>)
     }
 }

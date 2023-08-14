@@ -1,14 +1,21 @@
 package com.example.foodrecipeapp.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Step(
-    @Suppress("UnusedPrivateMember")
-    private val number: Int,
-    @Suppress("UnusedPrivateMember")
-    private val step: String,
-    @Suppress("UnusedPrivateMember")
-    private val ingredients: ArrayList<Ingredient>,
-    @Suppress("UnusedPrivateMember")
-    private val equipments: ArrayList<Equipment>,
-    @Suppress("UnusedPrivateMember")
-    private val length: Length
-)
+    val number: Int = 0,
+    val step: String = "",
+    val ingredients: MutableList<Ingredient> = mutableListOf(),
+    val equipments: MutableList<Equipment> = mutableListOf(),
+    val length: Length = Length()
+) : Parcelable
+
+object StepEntry {
+    const val NUMBER_KEY = "number"
+    const val STEP_KEY = "step"
+    const val INGREDIENTS_KEY = "ingredients"
+    const val EQUIPMENTS_KEY = "equipment"
+    const val LENGTH_KEY = "length"
+}

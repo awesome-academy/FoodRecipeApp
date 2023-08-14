@@ -1,6 +1,6 @@
 package com.example.foodrecipeapp.listener
 
 interface OnResultListener<T> {
-    fun onSuccess(data: T)
+    fun onSuccess(dataResult: T)
     fun onError(exception: Exception?)
 }

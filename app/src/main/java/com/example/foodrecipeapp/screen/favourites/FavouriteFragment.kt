@@ -1,7 +1,6 @@
 package com.example.foodrecipeapp.screen.favourites
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.FragmentFavouriteBinding
@@ -16,16 +15,16 @@ class FavouriteFragment : BaseViewBindingFragment<FragmentFavouriteBinding>(), O
         return FragmentFavouriteBinding.inflate(inflater, container, false)
     }
 
-    override fun initView(view: View?) {
-//        TODO("Not yet implemented")
+    override fun initView() {
+        // TODO("Not yet implemented")
     }
 
     override fun initData() {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun onItemClick(item: Recipe?) {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     companion object {
