@@ -3,11 +3,11 @@ package com.example.foodrecipeapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodrecipeapp.data.model.IntroSlide
 import com.example.foodrecipeapp.databinding.ItemIntroSlideBinding
+import com.example.foodrecipeapp.screen.onboarding.OnBoardingActivity
 
 class IntroSlideAdapter(
-    private val introSlides: List<IntroSlide>
+    private val introSlides: List<OnBoardingActivity.IntroSlide>
 ) : RecyclerView.Adapter<IntroSlideAdapter.IntroSlideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IntroSlideViewHolder {
@@ -26,7 +26,7 @@ class IntroSlideAdapter(
 
     inner class IntroSlideViewHolder(private val binding: ItemIntroSlideBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(introSlide: IntroSlide) {
+        fun bindData(introSlide: OnBoardingActivity.IntroSlide) {
             binding.tvSlogan1.text = introSlide.slogan
             binding.tvSloganContent.text = introSlide.content
             binding.imgBackground.setImageResource(introSlide.backgroundImg)

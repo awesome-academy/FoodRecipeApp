@@ -41,6 +41,12 @@ android {
             // is typically used for full builds and continuous builds.
             buildConfigField("String", "FOOD_RECIPE_BASE_URL", "\"${property("BASE_URL")}\"")
             buildConfigField("String", "FOOD_RECIPE_API_KEY", "\"${property("API_KEY")}\"")
+            buildConfigField("String", "BASE_URL_RECIPES", "\"${property("BASE_URL_RECIPES")}\"")
+            buildConfigField(
+                "String",
+                "BASE_URL_FOOD_INGREDIENTS",
+                "\"${property("BASE_URL_FOOD_INGREDIENTS")}\""
+            )
 
             isMinifyEnabled = false
             proguardFiles(
@@ -55,6 +61,12 @@ android {
             // Apply Changes as well as Gradle UP-TO-DATE checks.
             buildConfigField("String", "FOOD_RECIPE_BASE_URL", "\"${property("BASE_URL")}\"")
             buildConfigField("String", "FOOD_RECIPE_API_KEY", "\"${property("API_KEY")}\"")
+            buildConfigField("String", "BASE_URL_RECIPES", "\"${property("BASE_URL_RECIPES")}\"")
+            buildConfigField(
+                "String",
+                "BASE_URL_FOOD_INGREDIENTS",
+                "\"${property("BASE_URL_FOOD_INGREDIENTS")}\""
+            )
         }
     }
     buildFeatures {
