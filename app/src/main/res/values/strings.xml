@@ -16,4 +16,8 @@
     <string name="find_best_recipes_for_cooking">Find Best Recipes For Cooking</string>
     <string name="favourites_recipes">Favourites Recipes</string>
     <string name="settings">Settings</string>
+    <string name="dish_name">Dish name</string>
+    <string name="time_servings">45 Minutes</string>
+    <string name="total_likes">2 Likes</string>
+    <string name="servings">2 Servings</string>
 </resources>

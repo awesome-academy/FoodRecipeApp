@@ -2,100 +2,79 @@ package com.example.foodrecipeapp.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class Recipe(
-    @Suppress("UnusedPrivateMember")
-    private val vegetarian: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val vegan: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val glutenFree: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val dairyFree: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val veryHealthy: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val cheap: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val veryPopular: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val sustainable: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val weightWatcherSmartPoints: Int,
-    @Suppress("UnusedPrivateMember")
-    private val gaps: String,
-    @Suppress("UnusedPrivateMember")
-    private val lowFodmap: Boolean,
-    @Suppress("UnusedPrivateMember")
-    private val aggregateLikes: Int,
-    @Suppress("UnusedPrivateMember")
-    private val spoonacularScore: Double,
-    @Suppress("UnusedPrivateMember")
-    private val healthScore: Double,
-    @Suppress("UnusedPrivateMember")
-    private val creditsText: String,
-    @Suppress("UnusedPrivateMember")
-    private val license: String,
-    @Suppress("UnusedPrivateMember")
-    private val sourceName: String,
-    @Suppress("UnusedPrivateMember")
-    private val pricePerServing: Double,
-    @Suppress("UnusedPrivateMember")
-    private val id: Int,
-    @Suppress("UnusedPrivateMember")
-    private val title: String,
-    @Suppress("UnusedPrivateMember")
-    private val readyInMinutes: Int,
-    @Suppress("UnusedPrivateMember")
-    private val servings: Int,
-    @Suppress("UnusedPrivateMember")
-    private val sourceUrl: String,
-    @Suppress("UnusedPrivateMember")
-    private val image: String,
-    @Suppress("UnusedPrivateMember")
-    private val imageType: String,
-    @Suppress("UnusedPrivateMember")
-    private val summary: String,
-    @Suppress("UnusedPrivateMember")
-    private val cuisines: @RawValue ArrayList<Any>,
-    @Suppress("UnusedPrivateMember")
-    private val dishTypes: ArrayList<String>,
-    @Suppress("UnusedPrivateMember")
-    private val diets: ArrayList<String>,
-    @Suppress("UnusedPrivateMember")
-    private val occasions: ArrayList<String>,
-    @Suppress("UnusedPrivateMember")
-    private val instructions: String,
-    @Suppress("UnusedPrivateMember")
-    private val analyzedInstructions: @RawValue ArrayList<AnalyzedInstruction>,
-    @Suppress("UnusedPrivateMember")
-    private val originalId: @RawValue Any,
-    @Suppress("UnusedPrivateMember")
-    private val spoonacularSourceUrl: String
+    var vegetarian: Boolean = false,
+    var vegan: Boolean = false,
+    var glutenFree: Boolean = false,
+    var dairyFree: Boolean = false,
+    var veryHealthy: Boolean = false,
+    var cheap: Boolean = false,
+    var veryPopular: Boolean = false,
+    var sustainable: Boolean = false,
+    var weightWatcherSmartPoints: Int = 0,
+    var gaps: String = "",
+    var lowFodmap: Boolean = false,
+    var preparationMinutes: Int = 0,
+    var cookingMinutes: Int = 0,
+    var aggregateLikes: Int = 0,
+    var healthScore: Double = 0.0,
+    var creditsText: String = "",
+    var sourceName: String = "",
+    var pricePerServing: Double = 0.0,
+    var extendedIngredients: MutableList<ExtendedIngredient> = mutableListOf(),
+    var id: Int = 0,
+    var title: String = "",
+    var readyInMinutes: Int = 0,
+    var servings: Int = 0,
+    var sourceUrl: String = "",
+    var image: String = "",
+    var imageType: String = "",
+    var summary: String = "",
+    var cuisines: MutableList<String> = mutableListOf(),
+    var dishTypes: MutableList<String> = mutableListOf(),
+    var diets: MutableList<String> = mutableListOf(),
+    var occasions: MutableList<String> = mutableListOf(),
+    var instructions: String = "",
+    var analyzedInstructions: MutableList<AnalyzedInstruction> = mutableListOf(),
+    var spoonacularSourceUrl: String = ""
 ) : Parcelable
 
 object RecipeEntry {
-    const val SEARCH_RECIPES = "complexSearch"
-    const val SEARCH_RECIPES_BY_NUTRIENTS = "findByNutrients"
-    const val SEARCH_RECIPES_BY_INGREDIENTS = "findByIngredients"
-    const val GET_RECIPE_INFORMATION = "information"
-    const val GET_RECIPE_INFORMATION_BULK = "informationBulk"
-    const val GET_SIMILAR_RECIPES = "similar"
-    const val GET_RANDOM_RECIPES = "random"
-    const val AUTOCOMPLETE_RECIPE_SEARCH = "autocomplete"
-    const val TASTE_BY_ID = "tasteWidget.json"
-    const val EQUIPMENT_BY_ID = "equipmentWidget.json"
-    const val PRICE_BREAKDOWN_BY_ID = "priceBreakdownWidget.json"
-    const val INGREDIENTS_BY_ID = "ingredientWidget.json"
-    const val NUTRITION_BY_ID = "nutritionWidget.json"
-    const val GET_ANALYZED_RECIPE_INSTRUCTIONS = "analyzedInstructions"
-    const val EXTRACT_RECIPE_FROM_WEBSITE = "extract"
-    const val ANALYZE_RECIPE = "analyze"
-    const val SUMMARIZE_RECIPE = "summary"
-    const val ANALYZE_RECIPE_INSTRUCTIONS = "analyzeInstructions"
-    const val CLASSIFY_CUISINE = "cuisine"
-    const val ANALYZE_RECIPE_SEARCH_QUERY = "queries/analyze"
-    const val GUESS_NUTRITION_BY_DISH_NAME = "guessNutrition"
+    const val RECIPES_OBJECT = "recipes"
+    const val VEGETARIAN_KEY = "vegetarian"
+    const val VEGAN_KEY = "vegan"
+    const val GLUTEN_FREE_KEY = "glutenFree"
+    const val DAIRY_FREE_KEY = "dairyFree"
+    const val VERY_HEALTHY_KEY = "veryHealthy"
+    const val CHEAP_KEY = "cheap"
+    const val VERY_POPULAR_KEY = "veryPopular"
+    const val SUSTAINABLE_KEY = "sustainable"
+    const val LOW_FOD_MAP_KEY = "lowFodmap"
+    const val WEIGHT_WATCHER_SMART_POINTS_KEY = "weightWatcherSmartPoints"
+    const val GAPS_KEY = "gaps"
+    const val PREPARATION_MINUTES_KEY = "preparationMinutes"
+    const val COOKING_MINUTES_KEY = "cookingMinutes"
+    const val AGGREGATE_LIKES_KEY = "aggregateLikes"
+    const val HEALTH_SCORE_KEY = "healthScore"
+    const val CREDITS_TEXT_KEY = "creditsText"
+    const val SOURCE_NAME_KEY = "sourceName"
+    const val PRICE_PER_SERVING_KEY = "pricePerServing"
+    const val EXTENDED_INGREDIENTS_KEY = "extendedIngredients"
+    const val ID_KEY = "id"
+    const val TITLE_KEY = "title"
+    const val READY_IN_MINUTES_KEY = "readyInMinutes"
+    const val SERVINGS_KEY = "servings"
+    const val SOURCE_URL_KEY = "sourceUrl"
+    const val IMAGE_KEY = "image"
+    const val IMAGE_TYPE_KEY = "imageType"
+    const val SUMMARY_KEY = "summary"
+    const val CUISINES_KEY = "cuisines"
+    const val DISH_TYPES_KEY = "dishTypes"
+    const val DIETS_KEY = "diets"
+    const val OCCASIONS_KEY = "occasions"
+    const val INSTRUCTIONS_KEY = "instructions"
+    const val ANALYZED_INSTRUCTIONS_KEY = "analyzedInstructions"
+    const val SPOONACULAR_SOURCE_URL_KEY = "spoonacularSourceUrl"
 }
