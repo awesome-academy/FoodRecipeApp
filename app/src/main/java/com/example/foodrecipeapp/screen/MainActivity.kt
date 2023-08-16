@@ -27,6 +27,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
         } else {
             val pagerAdapter = MainPageAdapter(this, getFragmentList())
             binding.viewPager.adapter = pagerAdapter
+            binding.viewPager.isUserInputEnabled = false
 
             binding.bottomNav.setOnItemSelectedListener { item ->
                 when (item.itemId) {

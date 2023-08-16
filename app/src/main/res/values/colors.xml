@@ -9,4 +9,5 @@
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
     <color name="darkLayout">#99000000</color>
+    <color name="yellow">#fef1e1</color>
 </resources>

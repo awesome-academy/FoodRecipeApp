@@ -1,11 +1,12 @@
 package com.example.foodrecipeapp.screen.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.foodrecipeapp.adapter.HomeAdapter
+import com.example.foodrecipeapp.adapter.HomeChildAdapter
+import com.example.foodrecipeapp.data.model.HomeChild
 import com.example.foodrecipeapp.data.model.Recipe
-import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentHomeBinding
@@ -17,8 +18,9 @@ class HomeFragment :
     HomeContract.View,
     OnItemRecyclerViewClickListener<Recipe> {
     private lateinit var homePresenter: HomePresenter
-    private val homeAdapter: HomeAdapter by lazy {
-        HomeAdapter()
+
+    private val homeChildAdapter: HomeChildAdapter by lazy {
+        HomeChildAdapter()
     }
 
     override fun createBindingFragment(
@@ -29,7 +31,8 @@ class HomeFragment :
     }
 
     override fun initView() {
-        binding.rcvRecipes.adapter = homeAdapter
+        homeChildAdapter.setData(getListHomeChild())
+        binding.rcvHomeParent.adapter = homeChildAdapter
     }
 
     override fun initData() {
@@ -45,19 +48,19 @@ class HomeFragment :
     }
 
     override fun onGetRecipesSuccess(listRecipes: MutableList<Any>) {
-        val convertedList: MutableList<Recipe> = mutableListOf()
-
-        for (item in listRecipes) {
-            if (item is Recipe) {
-                convertedList.add(item)
-            }
-        }
-
-        homeAdapter.setData(convertedList)
+        // TODO("Not yet implemented")
     }
 
     override fun onError(exception: Exception?) {
         Toast.makeText(context, exception?.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getListHomeChild(): MutableList<HomeChild> {
+        return mutableListOf(
+            HomeChild(HomeChildAdapter.HOME_SEARCH_VIEW),
+            HomeChild(HomeChildAdapter.HOME_POPULAR_CATEGORY_VIEW),
+            HomeChild(HomeChildAdapter.HOME_RECENT_RECIPE_VIEW)
+        )
     }
 
     companion object {
