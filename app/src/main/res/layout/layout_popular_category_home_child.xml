@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_category"
@@ -29,8 +29,8 @@
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119"
+        app:layout_constraintTop_toBottomOf="@id/tv_category"
+        app:layout_constraintVertical_bias="0.028"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_category" />
 
@@ -38,28 +38,28 @@
         android:id="@+id/tv_see_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="@string/see_all"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/sp_18"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/dp_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintTop_toBottomOf="@id/rcv_category"
+        app:layout_constraintVertical_bias="0.012" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_recipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_see_all"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_recipe" />
 

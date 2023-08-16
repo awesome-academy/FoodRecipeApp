@@ -1,9 +1,10 @@
 package com.example.foodrecipeapp.screen.home
 
-import android.content.Context
+import android.app.ProgressDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.adapter.HomeChildAdapter
 import com.example.foodrecipeapp.data.model.HomeChild
 import com.example.foodrecipeapp.data.model.Recipe
@@ -20,8 +21,10 @@ class HomeFragment :
     private lateinit var homePresenter: HomePresenter
 
     private val homeChildAdapter: HomeChildAdapter by lazy {
-        HomeChildAdapter()
+        HomeChildAdapter(context = context, resources = resources)
     }
+
+    private lateinit var dialog: ProgressDialog
 
     override fun createBindingFragment(
         inflater: LayoutInflater,
@@ -33,6 +36,10 @@ class HomeFragment :
     override fun initView() {
         homeChildAdapter.setData(getListHomeChild())
         binding.rcvHomeParent.adapter = homeChildAdapter
+
+        dialog = ProgressDialog(context)
+        dialog.setTitle(getString(R.string.loading))
+        dialog.show()
     }
 
     override fun initData() {
@@ -47,8 +54,30 @@ class HomeFragment :
         // TODO("Not yet implemented")
     }
 
-    override fun onGetRecipesSuccess(listRecipes: MutableList<Any>) {
-        // TODO("Not yet implemented")
+    override fun onGetRandomRecipesSuccess(listRecipes: MutableList<Any>) {
+        val convertedList: MutableList<Recipe> = mutableListOf()
+
+        for (item in listRecipes) {
+            if (item is Recipe) {
+                convertedList.add(item)
+            }
+        }
+
+        homeChildAdapter.setRandomListRecipes(convertedList)
+        dialog.dismiss()
+    }
+
+    override fun onGetRandomVietnameseRecipesSuccess(listRecipes: MutableList<Any>) {
+        val convertedList: MutableList<Recipe> = mutableListOf()
+
+        for (item in listRecipes) {
+            if (item is Recipe) {
+                convertedList.add(item)
+            }
+        }
+
+        homeChildAdapter.setRandomListVietnameseRecipes(convertedList)
+        dialog.dismiss()
     }
 
     override fun onError(exception: Exception?) {

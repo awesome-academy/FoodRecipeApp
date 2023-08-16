@@ -7,7 +7,7 @@
     android:layout_marginStart="@dimen/dp_16">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
@@ -28,10 +28,10 @@
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_4"
         app:cardCornerRadius="@dimen/dp_8"
-        app:cardElevation="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:ignore="TextSizeCheck">
 
         <androidx.appcompat.widget.SearchView
@@ -46,7 +46,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="@dimen/dp_70"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_28"
+        android:layout_marginEnd="@dimen/dp_16"
         android:insetLeft="@dimen/dp_0"
         android:insetTop="@dimen/dp_0"
         android:insetRight="@dimen/dp_0"

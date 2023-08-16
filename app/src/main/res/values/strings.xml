@@ -28,7 +28,7 @@
     <string name="see_all">See all ➜</string>
     <string name="indonesian_chiken_burger">Indonesian chiken burger</string>
     <string name="recent_recipe">Recent Recipe</string>
-
+    <string name="loading">Loading…</string>
     <string-array name="categories">
         <item>Main Course</item>
         <item>Side Dish</item>

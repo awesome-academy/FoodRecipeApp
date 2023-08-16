@@ -21,7 +21,7 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
     override fun initView() {
         if (!DataLocalManager.getFirstInstalled()) {
             DataLocalManager.setFirstInstalled(true)
-            Intent(applicationContext, OnBoardingActivity::class.java).also {
+            Intent(this, OnBoardingActivity::class.java).also {
                 startActivity(it)
             }
         } else {

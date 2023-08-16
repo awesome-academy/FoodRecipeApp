@@ -7,7 +7,7 @@ import com.example.foodrecipeapp.utils.ext.notNull
 import org.json.JSONException
 import org.json.JSONObject
 
-class ParseDataWithJson {
+class ParseDataWithJson(private val fetchDataType: Int) {
     fun parseJsonToData(jsonObject: JSONObject?, keyEntity: String): FetchDataResult<MutableList<Any>> {
         val data = mutableListOf<Any>()
         return try {
@@ -18,7 +18,7 @@ class ParseDataWithJson {
                     data.add(it)
                 }
             }
-            FetchDataResult.Success(data)
+            FetchDataResult.Success(data, fetchDataType)
         } catch (e: JSONException) {
             FetchDataResult.Error(e)
         }
