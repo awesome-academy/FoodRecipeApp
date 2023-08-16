@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecipeBinding
+import com.example.foodrecipeapp.utils.ext.loadImageWithUrl
 import com.example.foodrecipeapp.utils.ext.notNull
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
@@ -22,7 +23,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bindData()
+        holder.bindData(listRandomRecipes[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -36,8 +37,30 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
 
     inner class HomeViewHolder(private val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindData() {
-            // TODO("Not yet implemented")
+        fun bindData(recipe: Recipe) {
+            binding.tvName.text = recipe.title
+
+            if (recipe.servings <= 1) {
+                binding.tvNumberServing.text = "${recipe.servings} Serving"
+            } else {
+                binding.tvNumberServing.text = "${recipe.servings} Servings"
+            }
+
+            if (recipe.aggregateLikes <= 1) {
+                binding.tvNumberLike.text = "${recipe.aggregateLikes} Like"
+            } else {
+                binding.tvNumberLike.text = "${recipe.aggregateLikes} Likes"
+            }
+
+            if (recipe.readyInMinutes <= 1) {
+                binding.tvEstimateTime.text = "${recipe.readyInMinutes} Min"
+            } else {
+                binding.tvEstimateTime.text = "${recipe.readyInMinutes} Minutes"
+            }
+
+            recipe.image.notNull {
+                binding.imgFood.loadImageWithUrl(it)
+            }
         }
     }
 }

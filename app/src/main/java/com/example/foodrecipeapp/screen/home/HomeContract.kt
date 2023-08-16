@@ -8,7 +8,8 @@ class HomeContract {
      * View
      */
     interface View {
-        fun onGetRecipesSuccess(listRecipes: MutableList<Any>)
+        fun onGetRandomRecipesSuccess(listRecipes: MutableList<Any>)
+        fun onGetRandomVietnameseRecipesSuccess(listRecipes: MutableList<Any>)
         fun onError(exception: Exception?)
     }
 

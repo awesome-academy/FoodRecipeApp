@@ -2,6 +2,7 @@ package com.example.foodrecipeapp.screen.home
 
 import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.data.repo.RecipeRepo
+import com.example.foodrecipeapp.data.repo.source.remote.fetchjson.GetJsonFromUrl
 import com.example.foodrecipeapp.listener.OnResultListener
 
 class HomePresenter(
@@ -26,7 +27,13 @@ class HomePresenter(
         recipeRepo?.getRecipesRemote(object : OnResultListener<FetchDataResult<MutableList<Any>>> {
             override fun onSuccess(dataResult: FetchDataResult<MutableList<Any>>) {
                 when (dataResult) {
-                    is FetchDataResult.Success -> view?.onGetRecipesSuccess(dataResult.data)
+                    is FetchDataResult.Success -> {
+                        if (dataResult.fetchDataType == GetJsonFromUrl.GET_RANDOM_RECIPE) {
+                            view?.onGetRandomRecipesSuccess(dataResult.data)
+                        } else {
+                            view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
+                        }
+                    }
                     is FetchDataResult.Error -> view?.onError(dataResult.exception)
                 }
             }
