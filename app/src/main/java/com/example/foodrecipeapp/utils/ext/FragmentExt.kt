@@ -15,6 +15,7 @@ fun Fragment.addFragment(
             if (addToBackStack) {
                 addToBackStack(tag)
             }
+
             setCustomAnimations(
                 R.anim.slide_in_right,
                 R.anim.slide_in_right,

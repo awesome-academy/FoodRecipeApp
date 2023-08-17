@@ -6,24 +6,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecipeBinding
+import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.utils.ext.loadImageWithUrl
 import com.example.foodrecipeapp.utils.ext.notNull
 
-class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
+class RecipeAdapter(
+    private val recipeItemClickListener: OnRecipeItemClickListener
+) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     private var listRandomRecipes: ArrayList<Recipe> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val binding = ItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeViewHolder(binding)
+        return RecipeViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return listRandomRecipes.size
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bindData(listRandomRecipes[position])
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+        holder.bindData(listRandomRecipes[position], position)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -35,9 +38,9 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
         }
     }
 
-    inner class HomeViewHolder(private val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RecipeViewHolder(private val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindData(recipe: Recipe) {
+        fun bindData(recipe: Recipe, position: Int) {
             binding.tvName.text = recipe.title
 
             if (recipe.servings <= 1) {
@@ -60,6 +63,10 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.HomeViewHolder>() {
 
             recipe.image.notNull {
                 binding.imgFood.loadImageWithUrl(it)
+            }
+
+            binding.imgFood.setOnClickListener {
+                recipeItemClickListener.onRecipeImageClick(listRandomRecipes[position])
             }
         }
     }

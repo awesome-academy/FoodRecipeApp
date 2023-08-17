@@ -18,5 +18,6 @@ interface RecipeDataSource {
      */
     interface Remote {
         fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>)
+        fun searchRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>, searchValue: String)
     }
 }

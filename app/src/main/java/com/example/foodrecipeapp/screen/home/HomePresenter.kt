@@ -34,6 +34,7 @@ class HomePresenter(
                             view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
                         }
                     }
+
                     is FetchDataResult.Error -> view?.onError(dataResult.exception)
                 }
             }
@@ -42,5 +43,31 @@ class HomePresenter(
                 view?.onError(exception)
             }
         })
+    }
+
+    override fun searchRecipes(searchValue: String) {
+        recipeRepo?.searchRecipesRemote(
+            object :
+                OnResultListener<FetchDataResult<MutableList<Any>>> {
+                override fun onSuccess(dataResult: FetchDataResult<MutableList<Any>>) {
+                    when (dataResult) {
+                        is FetchDataResult.Success -> {
+                            if (dataResult.fetchDataType == GetJsonFromUrl.GET_RANDOM_RECIPE) {
+                                view?.onGetRandomRecipesSuccess(dataResult.data)
+                            } else {
+                                view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
+                            }
+                        }
+
+                        is FetchDataResult.Error -> view?.onError(dataResult.exception)
+                    }
+                }
+
+                override fun onError(exception: Exception?) {
+                    view?.onError(exception)
+                }
+            },
+            searchValue
+        )
     }
 }

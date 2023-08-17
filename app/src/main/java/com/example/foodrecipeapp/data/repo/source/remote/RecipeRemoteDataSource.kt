@@ -16,6 +16,18 @@ class RecipeRemoteDataSource : RecipeDataSource.Remote {
         )
     }
 
+    override fun searchRecipesRemote(
+        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        searchValue: String
+    ) {
+        GetJsonFromUrl(
+            urlString = Constant.BASE_URL + Constant.BASE_URL_RECIPE,
+            keyEntity = RecipeEntry.RECIPES_OBJECT,
+            listener = listener,
+            searchValue = searchValue
+        ).searchRecipes()
+    }
+
     companion object {
         private var instance: RecipeRemoteDataSource? = null
 

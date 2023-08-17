@@ -20,6 +20,13 @@ class RecipeRepo private constructor(
         remote?.getRecipesRemote(listener)
     }
 
+    override fun searchRecipesRemote(
+        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        searchValue: String
+    ) {
+        remote?.searchRecipesRemote(listener, searchValue)
+    }
+
     companion object {
         private var instance: RecipeRepo? = null
 
