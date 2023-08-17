@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.data.model.HomeChild
@@ -11,15 +12,20 @@ import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.LayoutPopularCategoryHomeChildBinding
 import com.example.foodrecipeapp.databinding.LayoutRecentRecipeHomeChildBinding
 import com.example.foodrecipeapp.databinding.LayoutSearchHomeChildBinding
+import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
+import com.example.foodrecipeapp.screen.home.HomePresenter
 import com.example.foodrecipeapp.utils.base.BaseViewHolder
 
-class HomeChildAdapter(private val resources: Resources) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeChildAdapter(
+    private val resources: Resources,
+    private val presenter: HomePresenter,
+    private val recipeItemClickListener: OnRecipeItemClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listHomeChild: MutableList<HomeChild> = mutableListOf()
 
     private val recipeAdapter: RecipeAdapter by lazy {
-        RecipeAdapter()
+        RecipeAdapter(recipeItemClickListener)
     }
 
     private val recentRecipeAdapter: RecentRecipeAdapter by lazy {
@@ -27,7 +33,7 @@ class HomeChildAdapter(private val resources: Resources) :
     }
 
     private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter()
+        CategoryAdapter(presenter)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -100,7 +106,21 @@ class HomeChildAdapter(private val resources: Resources) :
     inner class HomeSearchRecipeViewHolder(private val binding: LayoutSearchHomeChildBinding) :
         BaseViewHolder<HomeChild>(binding) {
         override fun bindData(itemBinding: HomeChild) {
-            // TODO("Not yet implemented")
+            var searchValue: String? = ""
+            binding.searchViewHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchValue = newText
+                    return true
+                }
+            })
+
+            binding.btnSearch.setOnClickListener {
+                searchValue?.let { value -> presenter.searchRecipes(value) }
+            }
         }
     }
 

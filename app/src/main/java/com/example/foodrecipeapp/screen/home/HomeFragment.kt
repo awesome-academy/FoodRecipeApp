@@ -12,16 +12,23 @@ import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentHomeBinding
 import com.example.foodrecipeapp.listener.OnItemRecyclerViewClickListener
+import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
 
 class HomeFragment :
     BaseViewBindingFragment<FragmentHomeBinding>(),
     HomeContract.View,
-    OnItemRecyclerViewClickListener<Recipe> {
+    OnItemRecyclerViewClickListener<Recipe>,
+    OnRecipeItemClickListener {
+
     private lateinit var homePresenter: HomePresenter
 
     private val homeChildAdapter: HomeChildAdapter by lazy {
-        HomeChildAdapter(context = context, resources = resources)
+        HomeChildAdapter(
+            resources = resources,
+            presenter = homePresenter,
+            recipeItemClickListener = this
+        )
     }
 
     private lateinit var dialog: ProgressDialog
@@ -82,6 +89,15 @@ class HomeFragment :
 
     override fun onError(exception: Exception?) {
         Toast.makeText(context, exception?.message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSearchRecipe(searchValue: String) {
+        homePresenter.searchRecipes(searchValue)
+    }
+
+    override fun onRecipeImageClick(recipe: Recipe) {
+        Toast.makeText(requireContext(), recipe.title, Toast.LENGTH_SHORT).show()
+        onItemClick(recipe)
     }
 
     private fun getListHomeChild(): MutableList<HomeChild> {

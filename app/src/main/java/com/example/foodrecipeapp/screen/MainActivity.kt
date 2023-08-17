@@ -14,6 +14,10 @@ import com.example.foodrecipeapp.utils.base.BaseViewBindingActivity
 
 class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
 
+    private val pagerAdapter: MainPageAdapter by lazy {
+        MainPageAdapter(this, getFragmentList())
+    }
+
     override fun createBindingActivity(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
     }
@@ -25,7 +29,6 @@ class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
                 startActivity(it)
             }
         } else {
-            val pagerAdapter = MainPageAdapter(this, getFragmentList())
             binding.viewPager.adapter = pagerAdapter
             binding.viewPager.isUserInputEnabled = false
 

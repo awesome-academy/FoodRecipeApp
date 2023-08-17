@@ -2,7 +2,6 @@ package com.example.foodrecipeapp.data.repo.source.remote.fetchjson
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import com.example.foodrecipeapp.constant.Constant
 import com.example.foodrecipeapp.listener.OnResultListener
 import org.json.JSONException
@@ -17,7 +16,8 @@ import java.util.concurrent.Executors
 class GetJsonFromUrl<T : Any> constructor(
     private val urlString: String,
     private val keyEntity: String,
-    private val listener: OnResultListener<T>
+    private val listener: OnResultListener<T>,
+    private val searchValue: String = ""
 ) {
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
@@ -54,6 +54,25 @@ class GetJsonFromUrl<T : Any> constructor(
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vietnamese${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(GET_RANDOM_VIETNAMESE_RECIPE)
+                .parseJsonToData(JSONObject(responseJson), keyEntity) as? T
+            handler.post {
+                try {
+                    data?.let {
+                        listener.onSuccess(it)
+                    }
+                } catch (ex: JSONException) {
+                    listener.onError(ex)
+                }
+            }
+        }
+    }
+
+    fun searchRecipes() {
+        executor.execute {
+            val url =
+                "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=$searchValue${Constant.BASE_API_KEY}"
+            val responseJson = getJsonDataFromUrl(url)
+            val data = ParseDataWithJson(GET_RANDOM_RECIPE)
                 .parseJsonToData(JSONObject(responseJson), keyEntity) as? T
             handler.post {
                 try {

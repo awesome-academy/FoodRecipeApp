@@ -33,8 +33,8 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
         initData()
+        initView()
     }
 
     override fun onDestroy() {
