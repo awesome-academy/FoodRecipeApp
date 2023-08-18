@@ -3,6 +3,7 @@ package com.example.foodrecipeapp.data.repo.source.remote.fetchjson
 import android.os.Handler
 import android.os.Looper
 import com.example.foodrecipeapp.constant.Constant
+import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.listener.OnResultListener
 import org.json.JSONException
 import org.json.JSONObject
@@ -33,12 +34,11 @@ class GetJsonFromUrl<T : Any> constructor(
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vegetarian,dessert${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
-            val data =
-                ParseDataWithJson(GET_RANDOM_RECIPE)
-                    .parseJsonToData(JSONObject(responseJson), keyEntity) as? T
+            val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_RECIPE)
+                .parseJsonToData(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
-                    data?.let {
+                    data.let {
                         listener.onSuccess(it)
                     }
                 } catch (ex: JSONException) {
@@ -53,11 +53,11 @@ class GetJsonFromUrl<T : Any> constructor(
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vietnamese${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
-            val data = ParseDataWithJson(GET_RANDOM_VIETNAMESE_RECIPE)
-                .parseJsonToData(JSONObject(responseJson), keyEntity) as? T
+            val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_VIETNAMESE_RECIPE)
+                .parseJsonToData(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
-                    data?.let {
+                    data.let {
                         listener.onSuccess(it)
                     }
                 } catch (ex: JSONException) {
@@ -72,11 +72,11 @@ class GetJsonFromUrl<T : Any> constructor(
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=$searchValue${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
-            val data = ParseDataWithJson(GET_RANDOM_RECIPE)
-                .parseJsonToData(JSONObject(responseJson), keyEntity) as? T
+            val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_RECIPE)
+                .parseJsonToData(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
-                    data?.let {
+                    data.let {
                         listener.onSuccess(it)
                     }
                 } catch (ex: JSONException) {
@@ -120,7 +120,5 @@ class GetJsonFromUrl<T : Any> constructor(
         private const val REQUEST_ACCEPT_PROPERTY = "Accept"
         private const val REQUEST_JSON_VALUE = "application/json"
         private const val DEFAULT_RECIPE_NUMBER = 8
-        const val GET_RANDOM_RECIPE = 1
-        const val GET_RANDOM_VIETNAMESE_RECIPE = 2
     }
 }

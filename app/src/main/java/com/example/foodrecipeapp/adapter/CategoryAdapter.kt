@@ -10,7 +10,7 @@ import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.databinding.ItemCategoryBinding
 import com.example.foodrecipeapp.screen.home.HomePresenter
 
-class CategoryAdapter(private val presenter: HomePresenter) :
+class CategoryAdapter(private val presenter: HomePresenter?) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private var listCategories: MutableList<String> = mutableListOf()
@@ -36,16 +36,12 @@ class CategoryAdapter(private val presenter: HomePresenter) :
         notifyDataSetChanged()
     }
 
-    private fun handleClickCategoryButton(item: String) {
-        presenter.searchRecipes(item)
-    }
-
-    fun setActiveIndex(index: Int) {
-        if (currentIndex != index) {
-            val previousActiveIndex = currentIndex
-            currentIndex = index
-            notifyItemChanged(previousActiveIndex)
-            notifyItemChanged(currentIndex)
+    @SuppressLint("NotifyDataSetChanged")
+    private fun handleClickCategoryButton(item: String, position: Int) {
+        if (currentIndex != position) {
+            currentIndex = position
+            presenter?.searchRecipes(item)
+            notifyDataSetChanged()
         }
     }
 
@@ -84,8 +80,7 @@ class CategoryAdapter(private val presenter: HomePresenter) :
             }
 
             binding.btnCategory.setOnClickListener {
-                setActiveIndex(position)
-                handleClickCategoryButton(binding.btnCategory.text.toString())
+                handleClickCategoryButton(binding.btnCategory.text.toString(), position)
             }
         }
     }

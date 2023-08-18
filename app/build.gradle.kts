@@ -108,4 +108,5 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.27")
 }

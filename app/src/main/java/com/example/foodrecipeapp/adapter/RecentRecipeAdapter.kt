@@ -19,7 +19,7 @@ class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecip
     }
 
     override fun getItemCount(): Int {
-        return listRecentRecipes.size
+        return minOf(MAX_ITEM_COUNT, listRecentRecipes.size)
     }
 
     override fun onBindViewHolder(holder: RecentRecipeViewHolder, position: Int) {
@@ -46,5 +46,9 @@ class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecip
                 binding.imgFood.loadImageWithUrl(it)
             }
         }
+    }
+
+    companion object {
+        private const val MAX_ITEM_COUNT = 5
     }
 }

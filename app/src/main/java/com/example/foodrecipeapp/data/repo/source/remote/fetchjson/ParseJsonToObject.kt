@@ -23,43 +23,43 @@ import com.example.foodrecipeapp.data.model.UsEntry
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ParseJson {
-    fun recipesParseJson(jsonObject: JSONObject): Recipe {
+class ParseJsonToObject {
+    fun parseJsonToRecipeObject(jsonObject: JSONObject): Recipe {
         val recipe = Recipe()
 
         jsonObject.let {
             recipe.apply {
-                vegetarian = it.getBoolean(RecipeEntry.VEGETARIAN_KEY)
-                vegan = it.getBoolean(RecipeEntry.VEGAN_KEY)
-                glutenFree = it.getBoolean(RecipeEntry.GLUTEN_FREE_KEY)
-                dairyFree = it.getBoolean(RecipeEntry.DAIRY_FREE_KEY)
-                veryHealthy = it.getBoolean(RecipeEntry.VERY_HEALTHY_KEY)
-                cheap = it.getBoolean(RecipeEntry.CHEAP_KEY)
-                veryPopular = it.getBoolean(RecipeEntry.VERY_POPULAR_KEY)
-                sustainable = it.getBoolean(RecipeEntry.SUSTAINABLE_KEY)
-                weightWatcherSmartPoints = it.getInt(RecipeEntry.WEIGHT_WATCHER_SMART_POINTS_KEY)
-                gaps = it.getString(RecipeEntry.GAPS_KEY)
-                lowFodmap = it.getBoolean(RecipeEntry.LOW_FOD_MAP_KEY)
-                preparationMinutes = it.getInt(RecipeEntry.PREPARATION_MINUTES_KEY)
-                cookingMinutes = it.getInt(RecipeEntry.COOKING_MINUTES_KEY)
-                aggregateLikes = it.getInt(RecipeEntry.AGGREGATE_LIKES_KEY)
-                healthScore = it.getDouble(RecipeEntry.HEALTH_SCORE_KEY)
-                creditsText = it.getString(RecipeEntry.CREDITS_TEXT_KEY)
-                sourceName = it.getString(RecipeEntry.SOURCE_NAME_KEY)
-                pricePerServing = it.getDouble(RecipeEntry.PRICE_PER_SERVING_KEY)
+                vegetarian = it.optBoolean(RecipeEntry.VEGETARIAN_KEY)
+                vegan = it.optBoolean(RecipeEntry.VEGAN_KEY)
+                glutenFree = it.optBoolean(RecipeEntry.GLUTEN_FREE_KEY)
+                dairyFree = it.optBoolean(RecipeEntry.DAIRY_FREE_KEY)
+                veryHealthy = it.optBoolean(RecipeEntry.VERY_HEALTHY_KEY)
+                cheap = it.optBoolean(RecipeEntry.CHEAP_KEY)
+                veryPopular = it.optBoolean(RecipeEntry.VERY_POPULAR_KEY)
+                sustainable = it.optBoolean(RecipeEntry.SUSTAINABLE_KEY)
+                weightWatcherSmartPoints = it.optInt(RecipeEntry.WEIGHT_WATCHER_SMART_POINTS_KEY)
+                gaps = it.optString(RecipeEntry.GAPS_KEY)
+                lowFodmap = it.optBoolean(RecipeEntry.LOW_FOD_MAP_KEY)
+                preparationMinutes = it.optInt(RecipeEntry.PREPARATION_MINUTES_KEY)
+                cookingMinutes = it.optInt(RecipeEntry.COOKING_MINUTES_KEY)
+                aggregateLikes = it.optInt(RecipeEntry.AGGREGATE_LIKES_KEY)
+                healthScore = it.optDouble(RecipeEntry.HEALTH_SCORE_KEY)
+                creditsText = it.optString(RecipeEntry.CREDITS_TEXT_KEY)
+                sourceName = it.optString(RecipeEntry.SOURCE_NAME_KEY)
+                pricePerServing = it.optDouble(RecipeEntry.PRICE_PER_SERVING_KEY)
 
                 // Handle extended ingredients array
                 extendedIngredients =
                     parseExtendedIngredients(it.getJSONArray(RecipeEntry.EXTENDED_INGREDIENTS_KEY))
 
-                id = it.getInt(RecipeEntry.ID_KEY)
-                title = it.getString(RecipeEntry.TITLE_KEY)
-                readyInMinutes = it.getInt(RecipeEntry.READY_IN_MINUTES_KEY)
-                servings = it.getInt(RecipeEntry.SERVINGS_KEY)
-                sourceUrl = it.getString(RecipeEntry.SOURCE_URL_KEY)
-                image = it.getString(RecipeEntry.IMAGE_KEY)
-                imageType = it.getString(RecipeEntry.IMAGE_TYPE_KEY)
-                summary = it.getString(RecipeEntry.SUMMARY_KEY)
+                id = it.optInt(RecipeEntry.ID_KEY)
+                title = it.optString(RecipeEntry.TITLE_KEY)
+                readyInMinutes = it.optInt(RecipeEntry.READY_IN_MINUTES_KEY)
+                servings = it.optInt(RecipeEntry.SERVINGS_KEY)
+                sourceUrl = it.optString(RecipeEntry.SOURCE_URL_KEY)
+                image = it.optString(RecipeEntry.IMAGE_KEY)
+                imageType = it.optString(RecipeEntry.IMAGE_TYPE_KEY)
+                summary = it.optString(RecipeEntry.SUMMARY_KEY)
 
                 // Handle cuisines array
                 cuisines = parseStringArray(it.getJSONArray(RecipeEntry.CUISINES_KEY))
@@ -73,11 +73,11 @@ class ParseJson {
                 // Handle occasions array
                 occasions = parseStringArray(it.getJSONArray(RecipeEntry.OCCASIONS_KEY))
 
-                instructions = it.getString(RecipeEntry.INSTRUCTIONS_KEY)
+                instructions = it.optString(RecipeEntry.INSTRUCTIONS_KEY)
 
                 analyzedInstructions =
                     parseAnalyzedInstructions(it.getJSONArray(RecipeEntry.ANALYZED_INSTRUCTIONS_KEY))
-                spoonacularSourceUrl = it.getString(RecipeEntry.SPOONACULAR_SOURCE_URL_KEY)
+                spoonacularSourceUrl = it.optString(RecipeEntry.SPOONACULAR_SOURCE_URL_KEY)
             }
         }
 
@@ -96,16 +96,16 @@ class ParseJson {
                 parseStringArray(extendedIngredientJsonObject.getJSONArray(ExtendedIngredientEntry.META_KEY))
 
             val extendedIngredient = ExtendedIngredient(
-                id = extendedIngredientJsonObject.getInt(ExtendedIngredientEntry.ID_KEY),
-                aisle = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.AISLE_KEY),
-                image = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.IMAGE_KEY),
-                consistency = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.CONSISTENCY_KEY),
-                name = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.NAME_KEY),
-                nameClean = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.NAME_CLEAN_KEY),
-                original = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.ORIGINAL_KEY),
-                originalName = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.ORIGINAL_NAME_KEY),
+                id = extendedIngredientJsonObject.optInt(ExtendedIngredientEntry.ID_KEY),
+                aisle = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.AISLE_KEY),
+                image = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.IMAGE_KEY),
+                consistency = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.CONSISTENCY_KEY),
+                name = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.NAME_KEY),
+                nameClean = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.NAME_CLEAN_KEY),
+                original = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.ORIGINAL_KEY),
+                originalName = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.ORIGINAL_NAME_KEY),
                 amount = extendedIngredientJsonObject.getDouble(ExtendedIngredientEntry.AMOUNT_KEY),
-                unit = extendedIngredientJsonObject.getString(ExtendedIngredientEntry.UNIT_KEY),
+                unit = extendedIngredientJsonObject.optString(ExtendedIngredientEntry.UNIT_KEY),
                 meta = meta,
                 measure = measure
             )
@@ -122,14 +122,14 @@ class ParseJson {
 
         return Measure(
             us = Us(
-                amount = usObject.getDouble(UsEntry.AMOUNT_KEY),
-                unitShort = usObject.getString(UsEntry.UNIT_SHORT_KEY),
-                unitLong = usObject.getString(UsEntry.UNIT_LONG_KEY)
+                amount = usObject.optDouble(UsEntry.AMOUNT_KEY),
+                unitShort = usObject.optString(UsEntry.UNIT_SHORT_KEY),
+                unitLong = usObject.optString(UsEntry.UNIT_LONG_KEY)
             ),
             metric = Metric(
-                amount = metricObject.getDouble(MetricEntry.AMOUNT_KEY),
-                unitShort = metricObject.getString(MetricEntry.UNIT_SHORT_KEY),
-                unitLong = metricObject.getString(MetricEntry.UNIT_LONG_KEY)
+                amount = metricObject.optDouble(MetricEntry.AMOUNT_KEY),
+                unitShort = metricObject.optString(MetricEntry.UNIT_SHORT_KEY),
+                unitLong = metricObject.optString(MetricEntry.UNIT_LONG_KEY)
             )
         )
     }
@@ -149,7 +149,7 @@ class ParseJson {
 
         for (i in 0 until jsonArray.length()) {
             val analyzedInstructionJsonObject = jsonArray.getJSONObject(i)
-            val name = analyzedInstructionJsonObject.getString(AnalyzedInstructionEntry.NAME_KEY)
+            val name = analyzedInstructionJsonObject.optString(AnalyzedInstructionEntry.NAME_KEY)
             val stepsJsonArray =
                 analyzedInstructionJsonObject.getJSONArray(AnalyzedInstructionEntry.STEP_KEY)
             val steps = parseSteps(stepsJsonArray)
@@ -179,8 +179,8 @@ class ParseJson {
             val step =
                 stepJsonObject.optJSONObject(StepEntry.LENGTH_KEY)?.let { parseLength(it) }?.let {
                     Step(
-                        number = stepJsonObject.getInt(StepEntry.NUMBER_KEY),
-                        step = stepJsonObject.getString(StepEntry.STEP_KEY),
+                        number = stepJsonObject.optInt(StepEntry.NUMBER_KEY),
+                        step = stepJsonObject.optString(StepEntry.STEP_KEY),
                         ingredients = ingredients,
                         equipments = equipments,
                         length = it
@@ -201,10 +201,10 @@ class ParseJson {
         for (i in 0 until jsonArray.length()) {
             val ingredientJsonObject = jsonArray.getJSONObject(i)
             val ingredient = Ingredient(
-                id = ingredientJsonObject.getInt(IngredientEntry.ID_KEY),
-                name = ingredientJsonObject.getString(IngredientEntry.NAME_KEY),
-                localizedName = ingredientJsonObject.getString(IngredientEntry.LOCALIZED_NAME_KEY),
-                image = ingredientJsonObject.getString(IngredientEntry.IMAGE_KEY)
+                id = ingredientJsonObject.optInt(IngredientEntry.ID_KEY),
+                name = ingredientJsonObject.optString(IngredientEntry.NAME_KEY),
+                localizedName = ingredientJsonObject.optString(IngredientEntry.LOCALIZED_NAME_KEY),
+                image = ingredientJsonObject.optString(IngredientEntry.IMAGE_KEY)
             )
             ingredients.add(ingredient)
         }
@@ -218,10 +218,10 @@ class ParseJson {
         for (i in 0 until jsonArray.length()) {
             val equipmentJsonObject = jsonArray.getJSONObject(i)
             val equipment = Equipment(
-                id = equipmentJsonObject.getInt(EquipmentEntry.ID_KEY),
-                name = equipmentJsonObject.getString(EquipmentEntry.NAME_KEY),
-                localizedName = equipmentJsonObject.getString(EquipmentEntry.LOCALIZED_NAME_KEY),
-                image = equipmentJsonObject.getString(EquipmentEntry.IMAGE_KEY)
+                id = equipmentJsonObject.optInt(EquipmentEntry.ID_KEY),
+                name = equipmentJsonObject.optString(EquipmentEntry.NAME_KEY),
+                localizedName = equipmentJsonObject.optString(EquipmentEntry.LOCALIZED_NAME_KEY),
+                image = equipmentJsonObject.optString(EquipmentEntry.IMAGE_KEY)
             )
             equipments.add(equipment)
         }
@@ -231,8 +231,8 @@ class ParseJson {
 
     private fun parseLength(lengthObject: JSONObject): Length {
         return Length(
-            number = lengthObject.getInt(LengthEntry.NUMBER_KEY),
-            unit = lengthObject.getString(LengthEntry.UNIT_KEY)
+            number = lengthObject.optInt(LengthEntry.NUMBER_KEY),
+            unit = lengthObject.optString(LengthEntry.UNIT_KEY)
         )
     }
 }
