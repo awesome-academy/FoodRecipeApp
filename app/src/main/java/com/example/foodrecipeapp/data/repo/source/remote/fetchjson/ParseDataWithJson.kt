@@ -28,7 +28,7 @@ class ParseDataWithJson(private val fetchDataType: Int) {
         try {
             jsonObject?.notNull {
                 return when (keyEntity) {
-                    RecipeEntry.RECIPES_OBJECT -> ParseJson().recipesParseJson(it)
+                    RecipeEntry.RECIPES_OBJECT -> ParseJsonToObject().parseJsonToRecipeObject(it)
                     else -> null
                 }
             }

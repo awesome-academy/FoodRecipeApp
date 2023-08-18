@@ -1,6 +1,7 @@
 package com.example.foodrecipeapp.data.repo
 
 import android.content.ContentResolver
+import androidx.lifecycle.LifecycleOwner
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.data.repo.source.RecipeDataSource
 import com.example.foodrecipeapp.listener.OnResultListener
@@ -25,6 +26,13 @@ class RecipeRepo private constructor(
         searchValue: String
     ) {
         remote?.searchRecipesRemote(listener, searchValue)
+    }
+
+    override fun getListFavouritesRecipes(
+        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        viewLifecycleOwner: LifecycleOwner
+    ) {
+        remote?.getListFavouritesRecipes(listener, viewLifecycleOwner)
     }
 
     companion object {

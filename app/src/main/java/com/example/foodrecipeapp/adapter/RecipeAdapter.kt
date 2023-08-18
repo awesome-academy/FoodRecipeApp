@@ -3,7 +3,9 @@ package com.example.foodrecipeapp.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecipeBinding
 import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
@@ -22,7 +24,7 @@ class RecipeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listRandomRecipes.size
+        return minOf(MAX_ITEM_COUNT, listRandomRecipes.size)
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -38,7 +40,25 @@ class RecipeAdapter(
         }
     }
 
-    inner class RecipeViewHolder(private val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun handleClickFavouriteButton(binding: ItemRecipeBinding, recipe: Recipe) {
+        recipe.isFavourite = !recipe.isFavourite
+
+        if (recipe.isFavourite) {
+            binding.btnFavourite.setIconTintResource(R.color.colorAccent)
+            Toast.makeText(binding.root.context, R.string.bookmark_recipe, Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            binding.btnFavourite.setIconTintResource(R.color.black)
+            Toast.makeText(binding.root.context, R.string.unmark_recipe, Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        notifyDataSetChanged()
+    }
+
+    inner class RecipeViewHolder(private val binding: ItemRecipeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bindData(recipe: Recipe, position: Int) {
             binding.tvName.text = recipe.title
@@ -58,7 +78,7 @@ class RecipeAdapter(
             if (recipe.readyInMinutes <= 1) {
                 binding.tvEstimateTime.text = "${recipe.readyInMinutes} Min"
             } else {
-                binding.tvEstimateTime.text = "${recipe.readyInMinutes} Minutes"
+                binding.tvEstimateTime.text = "${recipe.readyInMinutes} Mins"
             }
 
             recipe.image.notNull {
@@ -68,6 +88,14 @@ class RecipeAdapter(
             binding.imgFood.setOnClickListener {
                 recipeItemClickListener.onRecipeImageClick(listRandomRecipes[position])
             }
+
+            binding.btnFavourite.setOnClickListener {
+                handleClickFavouriteButton(binding, recipe)
+            }
         }
+    }
+
+    companion object {
+        private const val MAX_ITEM_COUNT = 5
     }
 }

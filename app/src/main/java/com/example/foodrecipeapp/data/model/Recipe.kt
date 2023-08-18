@@ -38,7 +38,8 @@ data class Recipe(
     var occasions: MutableList<String> = mutableListOf(),
     var instructions: String = "",
     var analyzedInstructions: MutableList<AnalyzedInstruction> = mutableListOf(),
-    var spoonacularSourceUrl: String = ""
+    var spoonacularSourceUrl: String = "",
+    var isFavourite: Boolean = false
 ) : Parcelable
 
 object RecipeEntry {

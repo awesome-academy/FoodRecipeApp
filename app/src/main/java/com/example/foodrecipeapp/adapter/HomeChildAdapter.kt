@@ -1,9 +1,11 @@
 package com.example.foodrecipeapp.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.R
@@ -103,6 +105,16 @@ class HomeChildAdapter(
         notifyDataSetChanged()
     }
 
+    private fun handleClickSearchRecipe(context: Context, searchValue: String?) {
+        if (searchValue != null) {
+            if (searchValue.trim().isEmpty()) {
+                Toast.makeText(context, R.string.no_search_input, Toast.LENGTH_SHORT).show()
+            } else {
+                presenter.searchRecipes(searchValue)
+            }
+        }
+    }
+
     inner class HomeSearchRecipeViewHolder(private val binding: LayoutSearchHomeChildBinding) :
         BaseViewHolder<HomeChild>(binding) {
         override fun bindData(itemBinding: HomeChild) {
@@ -119,7 +131,7 @@ class HomeChildAdapter(
             })
 
             binding.btnSearch.setOnClickListener {
-                searchValue?.let { value -> presenter.searchRecipes(value) }
+                handleClickSearchRecipe(binding.root.context, searchValue)
             }
         }
     }

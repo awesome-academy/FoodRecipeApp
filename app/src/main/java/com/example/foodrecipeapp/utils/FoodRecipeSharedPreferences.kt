@@ -19,6 +19,21 @@ class FoodRecipeSharedPreferences(private val context: Context) {
         return sharedPreferences.getBoolean(key, false)
     }
 
+    fun putStringValue(key: String, value: String) {
+        val sharedPreferences =
+            context.getSharedPreferences(FOOD_RECIPE_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun getStringValue(key: String): String {
+        val sharedPreferences =
+            context.getSharedPreferences(FOOD_RECIPE_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+
+        return sharedPreferences.getString(key, "").toString()
+    }
+
     companion object {
         private const val FOOD_RECIPE_SHARED_PREFERENCES = "FOOD_RECIPE_SHARED_PREFERENCES"
     }
