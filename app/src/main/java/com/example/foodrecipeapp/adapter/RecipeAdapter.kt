@@ -9,6 +9,7 @@ import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecipeBinding
 import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
+import com.example.foodrecipeapp.utils.DataLocalManager
 import com.example.foodrecipeapp.utils.ext.loadImageWithUrl
 import com.example.foodrecipeapp.utils.ext.notNull
 
@@ -24,7 +25,7 @@ class RecipeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return minOf(MAX_ITEM_COUNT, listRandomRecipes.size)
+        return minOf(MAX_ITEM_SHOW_REVIEW, listRandomRecipes.size)
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -48,10 +49,12 @@ class RecipeAdapter(
             binding.btnFavourite.setIconTintResource(R.color.colorAccent)
             Toast.makeText(binding.root.context, R.string.bookmark_recipe, Toast.LENGTH_SHORT)
                 .show()
+            DataLocalManager.addFavouriteRecipe(recipe)
         } else {
             binding.btnFavourite.setIconTintResource(R.color.black)
             Toast.makeText(binding.root.context, R.string.unmark_recipe, Toast.LENGTH_SHORT)
                 .show()
+            DataLocalManager.removeFavouriteRecipe(recipe)
         }
 
         notifyDataSetChanged()
@@ -85,6 +88,14 @@ class RecipeAdapter(
                 binding.imgFood.loadImageWithUrl(it)
             }
 
+            val isFavourite =
+                DataLocalManager.favouriteRecipesLiveData.value?.contains(recipe) == true
+            if (isFavourite) {
+                binding.btnFavourite.setIconTintResource(R.color.colorAccent)
+            } else {
+                binding.btnFavourite.setIconTintResource(R.color.black)
+            }
+
             binding.imgFood.setOnClickListener {
                 recipeItemClickListener.onRecipeImageClick(listRandomRecipes[position])
             }
@@ -96,6 +107,6 @@ class RecipeAdapter(
     }
 
     companion object {
-        private const val MAX_ITEM_COUNT = 5
+        private const val MAX_ITEM_SHOW_REVIEW = 5
     }
 }

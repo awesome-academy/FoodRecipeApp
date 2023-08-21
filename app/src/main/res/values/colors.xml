@@ -9,7 +9,7 @@
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
     <color name="darkLayout">#99000000</color>
-    <color name="lightDarkLayout">#99131212</color>
+    <color name="lightDarkLayout">#99332F2F</color>
     <color name="background_yellow">#FFF2E2</color>
     <color name="light_yellow">#FCE7CD</color>
 </resources>

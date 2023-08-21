@@ -18,8 +18,8 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
         container: ViewGroup?
     ): T
 
-    abstract fun initView()
     abstract fun initData()
+    abstract fun initView()
 
     override fun onCreateView(
         inflater: LayoutInflater,

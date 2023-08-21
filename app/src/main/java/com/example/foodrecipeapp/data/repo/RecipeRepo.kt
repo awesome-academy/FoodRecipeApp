@@ -21,6 +21,20 @@ class RecipeRepo private constructor(
         remote?.getRecipesRemote(listener)
     }
 
+    override fun getListFavouritesRecipes(
+        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        viewLifecycleOwner: LifecycleOwner
+    ) {
+        remote?.getListFavouritesRecipes(listener, viewLifecycleOwner)
+    }
+
+    override fun getRecipeDetail(
+        listener: OnResultListener<FetchDataResult<Any>>,
+        recipeId: Int
+    ) {
+        remote?.getRecipeDetail(listener, recipeId)
+    }
+
     override fun searchRecipesRemote(
         listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
         searchValue: String
@@ -28,11 +42,20 @@ class RecipeRepo private constructor(
         remote?.searchRecipesRemote(listener, searchValue)
     }
 
-    override fun getListFavouritesRecipes(
+    override fun searchRecipesInList(
         listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
-        viewLifecycleOwner: LifecycleOwner
+        searchValue: String,
+        listRecipes: MutableList<Recipe>
     ) {
-        remote?.getListFavouritesRecipes(listener, viewLifecycleOwner)
+        remote?.searchRecipesInList(listener, searchValue, listRecipes)
+    }
+
+    override fun searchRecentRecipesInList(
+        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        searchValue: String,
+        listRecentRecipes: MutableList<Recipe>
+    ) {
+        remote?.searchRecentRecipesInList(listener, searchValue, listRecentRecipes)
     }
 
     companion object {

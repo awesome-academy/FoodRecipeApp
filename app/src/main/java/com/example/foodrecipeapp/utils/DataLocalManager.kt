@@ -1,7 +1,6 @@
 package com.example.foodrecipeapp.utils
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.data.repo.source.remote.fetchjson.ParseJsonToObject
@@ -18,7 +17,7 @@ class DataLocalManager {
 
         private var instance: DataLocalManager? = null
 
-        val listFavouritesRecipes: MutableList<Recipe> by lazy {
+        private val listFavouritesRecipes: MutableList<Recipe> by lazy {
             getListFavouriteRecipe()
         }
 
@@ -51,27 +50,12 @@ class DataLocalManager {
             )
         }
 
-        private fun setListFavouriteRecipe(listFavouritesRecipes: MutableList<Recipe>) {
-            val jsonArray = JSONArray()
-
-            for (recipe in listFavouritesRecipes) {
-                jsonArray.put(ParseObjectToJson().parseObjectToJsonObject(recipe))
-            }
-
-            getInstance().foodRecipeSharedPreferences.putStringValue(
-                SHARED_PREFERENCES_KEY_LIST_FAVOURITE_RECIPE,
-                jsonArray.toString()
-            )
-        }
-
         private fun getListFavouriteRecipe(): MutableList<Recipe> {
             val listFavouritesRecipes = mutableListOf<Recipe>()
 
             val strJsonArray = getInstance().foodRecipeSharedPreferences.getStringValue(
                 SHARED_PREFERENCES_KEY_LIST_FAVOURITE_RECIPE
             )
-
-            Log.e("getListFavouriteRecipe", strJsonArray)
 
             if (strJsonArray.isNotEmpty()) {
                 val jsonArray = JSONArray(strJsonArray)
@@ -86,6 +70,19 @@ class DataLocalManager {
             }
 
             return listFavouritesRecipes
+        }
+
+        private fun setListFavouriteRecipe(listFavouritesRecipes: MutableList<Recipe>) {
+            val jsonArray = JSONArray()
+
+            for (recipe in listFavouritesRecipes) {
+                jsonArray.put(ParseObjectToJson().parseObjectToJsonObject(recipe))
+            }
+
+            getInstance().foodRecipeSharedPreferences.putStringValue(
+                SHARED_PREFERENCES_KEY_LIST_FAVOURITE_RECIPE,
+                jsonArray.toString()
+            )
         }
 
         fun addFavouriteRecipe(recipe: Recipe) {

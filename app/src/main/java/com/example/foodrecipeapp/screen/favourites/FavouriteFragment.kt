@@ -3,6 +3,7 @@ package com.example.foodrecipeapp.screen.favourites
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.adapter.CategoryAdapter
 import com.example.foodrecipeapp.adapter.FavouriteAdapter
 import com.example.foodrecipeapp.data.model.Recipe
@@ -10,7 +11,6 @@ import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentFavouriteBinding
 import com.example.foodrecipeapp.listener.OnItemRecyclerViewClickListener
-import com.example.foodrecipeapp.utils.DataLocalManager
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
 import java.lang.Exception
 
@@ -36,11 +36,6 @@ class FavouriteFragment :
         CategoryAdapter(null)
     }
 
-    override fun initView() {
-        binding.rcvFavouriteRecipes.adapter = favouriteAdapter
-        binding.rcvCategory.adapter = categoryAdapter
-    }
-
     override fun initData() {
         favouritePresenter = FavouritePresenter(
             RecipeRepo.getInstanceRecipeRemoteRepo(RecipeRemoteDataSource.getInstance())
@@ -49,7 +44,14 @@ class FavouriteFragment :
         favouritePresenter.getListFavouritesRecipes(viewLifecycleOwner)
     }
 
-    override fun onItemClick(item: Recipe?) {
+    override fun initView() {
+        binding.rcvFavouriteRecipes.adapter = favouriteAdapter
+
+        categoryAdapter.setData(getListCategories())
+        binding.rcvCategory.adapter = categoryAdapter
+    }
+
+    override fun onItemClick(item: Recipe) {
         // TODO("Not yet implemented")
     }
 
@@ -69,8 +71,15 @@ class FavouriteFragment :
         // TODO("Not yet implemented")
     }
 
+    private fun getListCategories(): MutableList<String> {
+        val categoriesArray = resources.getStringArray(R.array.categories)
+
+        return categoriesArray.sorted().toMutableList()
+    }
+
     private fun updateFavouritesList(favourites: MutableList<Recipe>) {
         val totalFavouriteRecipes = favourites.size
+
         if (totalFavouriteRecipes == 0) {
             binding.tvNoFavouriteRecipeFound.visibility = View.VISIBLE
             binding.imgNoFavouriteRecipeFound.visibility = View.VISIBLE
@@ -83,6 +92,7 @@ class FavouriteFragment :
             binding.rcvFavouriteRecipes.visibility = View.VISIBLE
 
             favouriteAdapter.setData(favourites)
+            binding.rcvFavouriteRecipes.adapter = favouriteAdapter
         }
     }
 
