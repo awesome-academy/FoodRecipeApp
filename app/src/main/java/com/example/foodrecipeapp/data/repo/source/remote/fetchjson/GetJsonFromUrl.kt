@@ -3,6 +3,8 @@ package com.example.foodrecipeapp.data.repo.source.remote.fetchjson
 import android.os.Handler
 import android.os.Looper
 import com.example.foodrecipeapp.constant.Constant
+import com.example.foodrecipeapp.data.model.Recipe
+import com.example.foodrecipeapp.data.model.RecipeDetail
 import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.listener.OnResultListener
 import org.json.JSONException
@@ -14,28 +16,27 @@ import java.net.URL
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class GetJsonFromUrl<T : Any> constructor(
+class GetJsonFromUrl(
     private val urlString: String,
     private val keyEntity: String,
-    private val listener: OnResultListener<T>,
     private val searchValue: String = ""
 ) {
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
     private val handler: Handler = Handler(Looper.getMainLooper())
 
-    init {
-        callApiGetRandomRecipes()
-        callApiGetRandomVietnameseRecipes()
+    fun callApi(listener: OnResultListener<MutableList<Recipe>>) {
+        callApiGetRandomRecipes(listener)
+        callApiGetRandomVietnameseRecipes(listener)
     }
 
-    private fun callApiGetRandomRecipes() {
+    private fun callApiGetRandomRecipes(listener: OnResultListener<MutableList<Recipe>>) {
         executor.execute {
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vegetarian,appetizer${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_RECIPE)
-                .parseJsonToData(JSONObject(responseJson), keyEntity)
+                .parseJsonDataToListRecipes(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
                     data.let {
@@ -48,13 +49,13 @@ class GetJsonFromUrl<T : Any> constructor(
         }
     }
 
-    private fun callApiGetRandomVietnameseRecipes() {
+    private fun callApiGetRandomVietnameseRecipes(listener: OnResultListener<MutableList<Recipe>>) {
         executor.execute {
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vietnamese${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_VIETNAMESE_RECIPE)
-                .parseJsonToData(JSONObject(responseJson), keyEntity)
+                .parseJsonDataToListRecipes(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
                     data.let {
@@ -67,13 +68,13 @@ class GetJsonFromUrl<T : Any> constructor(
         }
     }
 
-    fun searchRecipes() {
+    fun searchRecipes(listener: OnResultListener<MutableList<Recipe>>) {
         executor.execute {
             val url =
                 "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=$searchValue${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_RECIPE)
-                .parseJsonToData(JSONObject(responseJson), keyEntity)
+                .parseJsonDataToListRecipes(JSONObject(responseJson), keyEntity)
             handler.post {
                 try {
                     data.let {
@@ -86,13 +87,13 @@ class GetJsonFromUrl<T : Any> constructor(
         }
     }
 
-    fun getRecipeDetail() {
+    fun getRecipeDetail(listener: OnResultListener<RecipeDetail>) {
         executor.execute {
             val url =
                 "$urlString/information?includeNutrition=$IS_INCLUDE_NUTRITION${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RECIPE_DETAIL)
-                .parseJsonToDataDetail(JSONObject(responseJson))
+                .parseJsonDataToRecipeDetailData(JSONObject(responseJson))
             handler.post {
                 try {
                     data.let {

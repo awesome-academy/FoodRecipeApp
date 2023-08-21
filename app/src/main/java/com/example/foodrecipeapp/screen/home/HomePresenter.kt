@@ -26,17 +26,16 @@ class HomePresenter(
     }
 
     override fun getRecipes() {
-        recipeRepo?.getRecipesRemote(object : OnResultListener<FetchDataResult<MutableList<Any>>> {
-            override fun onSuccess(dataResult: FetchDataResult<Any>) {
+        recipeRepo?.getRecipesRemote(object : OnResultListener<MutableList<Recipe>> {
+            override fun onSuccess(dataResult: FetchDataResult<MutableList<Recipe>>) {
                 when (dataResult) {
                     is FetchDataResult.Success -> {
                         if (dataResult.fetchDataType == FetchDataResult.FETCH_TYPE_RANDOM_RECIPE) {
-                            view?.onGetRandomRecipesSuccess(dataResult.data as MutableList<Any>)
+                            view?.onGetRandomRecipesSuccess(dataResult.data)
                         } else {
-                            view?.onGetRandomVietnameseRecipesSuccess(dataResult.data as MutableList<Any>)
+                            view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
                         }
                     }
-
                     is FetchDataResult.Error -> view?.onError(dataResult.exception)
                 }
             }
@@ -50,16 +49,17 @@ class HomePresenter(
     override fun searchRecipes(searchValue: String) {
         recipeRepo?.searchRecipesRemote(
             object :
-                OnResultListener<FetchDataResult<MutableList<Any>>> {
-                override fun onSuccess(dataResult: FetchDataResult<Any>) {
+                OnResultListener<MutableList<Recipe>> {
+                override fun onSuccess(dataResult: FetchDataResult<MutableList<Recipe>>) {
                     when (dataResult) {
                         is FetchDataResult.Success -> {
                             if (dataResult.fetchDataType == FetchDataResult.FETCH_TYPE_RANDOM_RECIPE) {
-                                view?.onGetRandomRecipesSuccess(dataResult.data as MutableList<Any>)
+                                view?.onGetRandomRecipesSuccess(dataResult.data)
                             } else {
-                                view?.onGetRandomVietnameseRecipesSuccess(dataResult.data as MutableList<Any>)
+                                view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
                             }
                         }
+
                         is FetchDataResult.Error -> view?.onError(dataResult.exception)
                     }
                 }

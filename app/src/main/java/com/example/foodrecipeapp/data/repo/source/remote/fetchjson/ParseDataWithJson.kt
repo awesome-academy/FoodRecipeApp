@@ -1,6 +1,8 @@
 package com.example.foodrecipeapp.data.repo.source.remote.fetchjson
 
 import android.util.Log
+import com.example.foodrecipeapp.data.model.Recipe
+import com.example.foodrecipeapp.data.model.RecipeDetail
 import com.example.foodrecipeapp.data.model.RecipeEntry
 import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.utils.ext.notNull
@@ -8,12 +10,15 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class ParseDataWithJson(private val fetchDataType: Int) {
-    fun parseJsonToData(jsonObject: JSONObject?, keyEntity: String): FetchDataResult<MutableList<Any>> {
-        val data = mutableListOf<Any>()
+    fun parseJsonDataToListRecipes(
+        jsonObject: JSONObject?,
+        keyEntity: String
+    ): FetchDataResult<MutableList<Recipe>> {
+        val data = mutableListOf<Recipe>()
         return try {
             val jsonArray = jsonObject?.getJSONArray(keyEntity)
             for (i in 0 until (jsonArray?.length() ?: 0)) {
-                val item = parseJsonToObject(jsonArray?.getJSONObject(i), keyEntity)
+                val item = parseJsonDataToRecipeObject(jsonArray?.getJSONObject(i), keyEntity)
                 item.notNull {
                     data.add(it)
                 }
@@ -24,7 +29,7 @@ class ParseDataWithJson(private val fetchDataType: Int) {
         }
     }
 
-    private fun parseJsonToObject(jsonObject: JSONObject?, keyEntity: String): Any? {
+    private fun parseJsonDataToRecipeObject(jsonObject: JSONObject?, keyEntity: String): Recipe? {
         try {
             jsonObject?.notNull {
                 return when (keyEntity) {
@@ -33,13 +38,12 @@ class ParseDataWithJson(private val fetchDataType: Int) {
                 }
             }
         } catch (e: JSONException) {
-            // Log error messages into the system log
             Log.e("ParseDataWithJson", "Error parsing JSON: $e")
         }
         return null
     }
 
-    fun parseJsonToDataDetail(jsonObject: JSONObject?): FetchDataResult<Any> {
+    fun parseJsonDataToRecipeDetailData(jsonObject: JSONObject?): FetchDataResult<RecipeDetail> {
         return try {
             val item = ParseJsonToObjectDetail().parseJsonToRecipeObject(jsonObject)
             FetchDataResult.Success(item, fetchDataType)

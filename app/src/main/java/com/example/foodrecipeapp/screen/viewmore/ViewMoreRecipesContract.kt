@@ -10,7 +10,7 @@ class ViewMoreRecipesContract {
      */
     interface View {
         fun handleClickSearchRecipe(searchValue: String)
-        fun onSearchRecipesInList(listRecipes: MutableList<Any>)
+        fun onSearchRecipesInList(listRecipes: MutableList<Recipe>)
         fun onError(exception: Exception?)
     }
 

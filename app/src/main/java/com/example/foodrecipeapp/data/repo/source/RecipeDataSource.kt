@@ -3,7 +3,7 @@ package com.example.foodrecipeapp.data.repo.source
 import android.content.ContentResolver
 import androidx.lifecycle.LifecycleOwner
 import com.example.foodrecipeapp.data.model.Recipe
-import com.example.foodrecipeapp.data.repo.FetchDataResult
+import com.example.foodrecipeapp.data.model.RecipeDetail
 import com.example.foodrecipeapp.listener.OnResultListener
 
 interface RecipeDataSource {
@@ -21,31 +21,31 @@ interface RecipeDataSource {
      * Remote
      */
     interface Remote {
-        fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>)
+        fun getRecipesRemote(listener: OnResultListener<MutableList<Recipe>>)
         fun getListFavouritesRecipes(
-            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            listener: OnResultListener<MutableList<Recipe>>,
             viewLifecycleOwner: LifecycleOwner
         )
         fun getRecipeDetail(
-            listener: OnResultListener<FetchDataResult<Any>>,
+            listener: OnResultListener<RecipeDetail>,
             recipeId: Int
         )
         fun searchRecipesRemote(
-            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            listener: OnResultListener<MutableList<Recipe>>,
             searchValue: String
         )
         fun searchRecipesInList(
-            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            listener: OnResultListener<MutableList<Recipe>>,
             searchValue: String,
             listRecipes: MutableList<Recipe>
         )
         fun searchRecentRecipesInList(
-            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            listener: OnResultListener<MutableList<Recipe>>,
             searchValue: String,
             listRecentRecipes: MutableList<Recipe>
         )
         fun filterRecipesByCategoryInList(
-            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            listener: OnResultListener<MutableList<Recipe>>,
             searchValue: String,
             listRecentRecipes: MutableList<Recipe>
         )

@@ -3,6 +3,7 @@ package com.example.foodrecipeapp.data.repo
 import android.content.ContentResolver
 import androidx.lifecycle.LifecycleOwner
 import com.example.foodrecipeapp.data.model.Recipe
+import com.example.foodrecipeapp.data.model.RecipeDetail
 import com.example.foodrecipeapp.data.repo.source.RecipeDataSource
 import com.example.foodrecipeapp.listener.OnResultListener
 
@@ -17,33 +18,33 @@ class RecipeRepo private constructor(
         local?.getRecipesLocal(contentResolver, listener)
     }
 
-    override fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>) {
+    override fun getRecipesRemote(listener: OnResultListener<MutableList<Recipe>>) {
         remote?.getRecipesRemote(listener)
     }
 
     override fun getListFavouritesRecipes(
-        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        listener: OnResultListener<MutableList<Recipe>>,
         viewLifecycleOwner: LifecycleOwner
     ) {
         remote?.getListFavouritesRecipes(listener, viewLifecycleOwner)
     }
 
     override fun getRecipeDetail(
-        listener: OnResultListener<FetchDataResult<Any>>,
+        listener: OnResultListener<RecipeDetail>,
         recipeId: Int
     ) {
         remote?.getRecipeDetail(listener, recipeId)
     }
 
     override fun searchRecipesRemote(
-        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        listener: OnResultListener<MutableList<Recipe>>,
         searchValue: String
     ) {
         remote?.searchRecipesRemote(listener, searchValue)
     }
 
     override fun searchRecipesInList(
-        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        listener: OnResultListener<MutableList<Recipe>>,
         searchValue: String,
         listRecipes: MutableList<Recipe>
     ) {
@@ -51,11 +52,19 @@ class RecipeRepo private constructor(
     }
 
     override fun searchRecentRecipesInList(
-        listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+        listener: OnResultListener<MutableList<Recipe>>,
         searchValue: String,
         listRecentRecipes: MutableList<Recipe>
     ) {
         remote?.searchRecentRecipesInList(listener, searchValue, listRecentRecipes)
+    }
+
+    override fun filterRecipesByCategoryInList(
+        listener: OnResultListener<MutableList<Recipe>>,
+        searchValue: String,
+        listRecentRecipes: MutableList<Recipe>
+    ) {
+        remote?.filterRecipesByCategoryInList(listener, searchValue, listRecentRecipes)
     }
 
     companion object {
