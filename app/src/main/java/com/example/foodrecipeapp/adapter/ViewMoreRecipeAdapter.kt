@@ -3,16 +3,19 @@ package com.example.foodrecipeapp.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecipeMoreBinding
+import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.utils.DataLocalManager
 import com.example.foodrecipeapp.utils.ext.loadImageWithUrl
 import com.example.foodrecipeapp.utils.ext.notNull
 
-class ViewMoreRecipeAdapter :
-    RecyclerView.Adapter<ViewMoreRecipeAdapter.ViewMoreRecipeViewHolder>() {
+class ViewMoreRecipeAdapter(
+    private val recipeItemClickListener: OnRecipeItemClickListener
+) : RecyclerView.Adapter<ViewMoreRecipeAdapter.ViewMoreRecipeViewHolder>() {
 
     private var listRecipes: MutableList<Recipe> = mutableListOf()
 
@@ -34,12 +37,23 @@ class ViewMoreRecipeAdapter :
         this.listRecipes = listRecipes
     }
 
-    private fun handleClickRecipeImage() {
-        // TODO("Not yet implemented")
-    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun handleClickFavouriteButton(binding: ItemRecipeMoreBinding, recipe: Recipe) {
+        recipe.isFavourite = !recipe.isFavourite
 
-    private fun handleClickFavouriteButton() {
-        // TODO("Not yet implemented")
+        if (recipe.isFavourite) {
+            binding.btnFavourite.setIconTintResource(R.color.colorAccent)
+            Toast.makeText(binding.root.context, R.string.bookmark_recipe, Toast.LENGTH_SHORT)
+                .show()
+            DataLocalManager.addFavouriteRecipe(recipe)
+        } else {
+            binding.btnFavourite.setIconTintResource(R.color.black)
+            Toast.makeText(binding.root.context, R.string.unmark_recipe, Toast.LENGTH_SHORT)
+                .show()
+            DataLocalManager.removeFavouriteRecipe(recipe)
+        }
+
+        notifyDataSetChanged()
     }
 
     inner class ViewMoreRecipeViewHolder(private val binding: ItemRecipeMoreBinding) :
@@ -78,11 +92,11 @@ class ViewMoreRecipeAdapter :
             }
 
             binding.imgFood.setOnClickListener {
-                handleClickRecipeImage()
+                recipeItemClickListener.onRecipeImageClick(recipe)
             }
 
             binding.btnFavourite.setOnClickListener {
-                handleClickFavouriteButton()
+                handleClickFavouriteButton(binding, recipe)
             }
         }
     }

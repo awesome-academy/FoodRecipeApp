@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.databinding.ItemRecentRecipeBinding
+import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.utils.ext.loadImageWithUrl
 import com.example.foodrecipeapp.utils.ext.notNull
 
-class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecipeViewHolder>() {
+class RecentRecipeAdapter(
+    private val recipeItemClickListener: OnRecipeItemClickListener
+) : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecipeViewHolder>() {
     private var listRecentRecipes: ArrayList<Recipe> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentRecipeViewHolder {
@@ -44,6 +47,10 @@ class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecip
 
             recipe.image.notNull {
                 binding.imgFood.loadImageWithUrl(it)
+            }
+
+            binding.imgFood.setOnClickListener {
+                recipeItemClickListener.onRecipeImageClick(recipe)
             }
         }
     }

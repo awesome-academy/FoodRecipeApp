@@ -12,7 +12,6 @@ import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentHomeBinding
 import com.example.foodrecipeapp.listener.OnBackPressedListener
-import com.example.foodrecipeapp.listener.OnItemRecyclerViewClickListener
 import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.screen.detail.RecipeDetailFragment
 import com.example.foodrecipeapp.screen.viewmore.ViewMoreRecentRecipesFragment
@@ -24,7 +23,6 @@ import com.example.foodrecipeapp.utils.ext.addFragment
 class HomeFragment :
     BaseViewBindingFragment<FragmentHomeBinding>(),
     HomeContract.View,
-    OnItemRecyclerViewClickListener<Recipe>,
     OnRecipeItemClickListener,
     OnBackPressedListener {
 
@@ -106,11 +104,7 @@ class HomeFragment :
     }
 
     override fun onRecipeImageClick(recipe: Recipe) {
-        onItemClick(recipe)
-    }
-
-    override fun onItemClick(item: Recipe) {
-        addFragment(R.id.fragment_home_container, RecipeDetailFragment.newInstance(item.id), true)
+        addFragment(R.id.fragment_home_container, RecipeDetailFragment.newInstance(recipe.id), true)
     }
 
     override fun onBackPressedWithData(listRecipes: MutableList<Recipe>) {

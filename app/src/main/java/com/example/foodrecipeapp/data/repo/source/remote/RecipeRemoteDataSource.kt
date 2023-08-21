@@ -15,7 +15,7 @@ class RecipeRemoteDataSource : RecipeDataSource.Remote {
     override fun getRecipesRemote(listener: OnResultListener<MutableList<Recipe>>) {
         GetJsonFromUrl(
             urlString = Constant.BASE_URL + Constant.BASE_URL_RECIPE,
-            keyEntity = RecipeEntry.RECIPES_OBJECT,
+            keyEntity = RecipeEntry.RECIPES_OBJECT
         ).callApi(listener)
     }
 
@@ -38,8 +38,8 @@ class RecipeRemoteDataSource : RecipeDataSource.Remote {
         recipeId: Int
     ) {
         GetJsonFromUrl(
-            urlString = "${Constant.BASE_URL}${Constant.BASE_URL_RECIPE}$recipeId",
-            keyEntity = "",
+            urlString = "${Constant.BASE_URL}${Constant.BASE_URL_RECIPE}/$recipeId",
+            keyEntity = ""
         ).getRecipeDetail(listener)
     }
 

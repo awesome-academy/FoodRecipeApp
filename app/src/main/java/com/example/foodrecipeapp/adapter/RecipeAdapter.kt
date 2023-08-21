@@ -29,7 +29,7 @@ class RecipeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.bindData(listRandomRecipes[position], position)
+        holder.bindData(listRandomRecipes[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -63,7 +63,7 @@ class RecipeAdapter(
     inner class RecipeViewHolder(private val binding: ItemRecipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindData(recipe: Recipe, position: Int) {
+        fun bindData(recipe: Recipe) {
             binding.tvName.text = recipe.title
 
             if (recipe.servings <= 1) {
@@ -97,7 +97,7 @@ class RecipeAdapter(
             }
 
             binding.imgFood.setOnClickListener {
-                recipeItemClickListener.onRecipeImageClick(listRandomRecipes[position])
+                recipeItemClickListener.onRecipeImageClick(recipe)
             }
 
             binding.btnFavourite.setOnClickListener {

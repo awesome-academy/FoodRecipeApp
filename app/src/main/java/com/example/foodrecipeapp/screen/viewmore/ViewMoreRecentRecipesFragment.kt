@@ -7,54 +7,51 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import com.example.foodrecipeapp.R
-import com.example.foodrecipeapp.adapter.ViewMoreRecipeAdapter
+import com.example.foodrecipeapp.adapter.ViewMoreRecentRecipeAdapter
 import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
-import com.example.foodrecipeapp.databinding.FragmentViewMoreRecipesBinding
-import com.example.foodrecipeapp.listener.OnBackPressedListener
+import com.example.foodrecipeapp.databinding.FragmentViewMoreRecentRecipesBinding
 import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
 import com.example.foodrecipeapp.screen.detail.RecipeDetailFragment
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
 import com.example.foodrecipeapp.utils.ext.addFragment
 import com.example.foodrecipeapp.utils.ext.goBackFragment
 
-class ViewMoreRecipesFragment :
-    BaseViewBindingFragment<FragmentViewMoreRecipesBinding>(),
-    ViewMoreRecipesContract.View,
+class ViewMoreRecentRecipesFragment :
+    BaseViewBindingFragment<FragmentViewMoreRecentRecipesBinding>(),
+    ViewMoreRecentRecipesContract.View,
     OnRecipeItemClickListener {
 
-    private lateinit var viewMoreRecipesPresenter: ViewMoreRecipesPresenter
-    private var listRecipes: MutableList<Recipe>? = mutableListOf()
-    private var onBackPressedListener: OnBackPressedListener? = null
+    private lateinit var viewMoreRecentRecipesPresenter: ViewMoreRecentRecipesPresenter
+    private var listRecentRecipes: MutableList<Recipe>? = mutableListOf()
 
-    private val viewMoreRecipeAdapter: ViewMoreRecipeAdapter by lazy {
-        ViewMoreRecipeAdapter(this)
+    private val viewMoreRecentRecipeAdapter: ViewMoreRecentRecipeAdapter by lazy {
+        ViewMoreRecentRecipeAdapter(this)
     }
 
     override fun createBindingFragment(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentViewMoreRecipesBinding {
-        return FragmentViewMoreRecipesBinding.inflate(inflater, container, false)
+    ): FragmentViewMoreRecentRecipesBinding {
+        return FragmentViewMoreRecentRecipesBinding.inflate(inflater, container, false)
     }
 
     override fun initData() {
-        viewMoreRecipesPresenter = ViewMoreRecipesPresenter(
+        viewMoreRecentRecipesPresenter = ViewMoreRecentRecipesPresenter(
             RecipeRepo.getInstanceRecipeRemoteRepo(RecipeRemoteDataSource.getInstance())
         )
-        viewMoreRecipesPresenter.setView(this)
+        viewMoreRecentRecipesPresenter.setView(this)
     }
 
     override fun initView() {
         arguments?.run {
-            listRecipes = getParcelableArrayList(LIST_RECIPES)
+            listRecentRecipes = getParcelableArrayList(LIST_RECENT_RECIPES)
         }
-        listRecipes?.let { viewMoreRecipeAdapter.setData(it) }
-        binding.rcvRecipes.adapter = viewMoreRecipeAdapter
+        listRecentRecipes?.let { viewMoreRecentRecipeAdapter.setData(it) }
+        binding.rcvRecentRecipes.adapter = viewMoreRecentRecipeAdapter
 
         binding.imgBackButton.setOnClickListener {
-            listRecipes?.let { it1 -> onBackPressedListener?.onBackPressedWithData(it1) }
             goBackFragment()
         }
 
@@ -73,23 +70,28 @@ class ViewMoreRecipesFragment :
         })
 
         binding.btnSearch.setOnClickListener {
-            handleClickSearchRecipe(searchValue)
+            handleClickSearchRecentRecipe(searchValue)
         }
     }
 
-    override fun handleClickSearchRecipe(searchValue: String) {
-        listRecipes?.let { viewMoreRecipesPresenter.searchRecipesInList(it, searchValue) }
+    override fun handleClickSearchRecentRecipe(searchValue: String) {
+        listRecentRecipes?.let {
+            viewMoreRecentRecipesPresenter.searchRecentRecipesInList(
+                it,
+                searchValue
+            )
+        }
     }
 
-    override fun onSearchRecipesInList(listRecipes: MutableList<Recipe>) {
-        if (listRecipes.size == 0) {
-            binding.rcvRecipes.visibility = View.GONE
-            binding.tvNoRecipeFound.visibility = View.VISIBLE
+    override fun onSearchRecentRecipesInList(listRecentRecipes: MutableList<Recipe>) {
+        if (listRecentRecipes.size == 0) {
+            binding.rcvRecentRecipes.visibility = View.GONE
+            binding.tvNoRecentRecipeFound.visibility = View.VISIBLE
         } else {
-            viewMoreRecipeAdapter.setData(listRecipes)
-            binding.tvNoRecipeFound.visibility = View.GONE
-            binding.rcvRecipes.visibility = View.VISIBLE
-            binding.rcvRecipes.adapter = viewMoreRecipeAdapter
+            viewMoreRecentRecipeAdapter.setData(listRecentRecipes)
+            binding.tvNoRecentRecipeFound.visibility = View.GONE
+            binding.rcvRecentRecipes.visibility = View.VISIBLE
+            binding.rcvRecentRecipes.adapter = viewMoreRecentRecipeAdapter
         }
     }
 
@@ -105,16 +107,13 @@ class ViewMoreRecipesFragment :
         )
     }
 
-    fun setOnBackListener(listener: OnBackPressedListener) {
-        onBackPressedListener = listener
-    }
-
     companion object {
-        private const val LIST_RECIPES = "LIST_RECIPES"
+        private const val LIST_RECENT_RECIPES = "LIST_RECENT_RECIPES"
 
         @JvmStatic
-        fun newInstance(listRecipes: MutableList<Recipe>) = ViewMoreRecipesFragment().apply {
-            arguments = bundleOf(LIST_RECIPES to listRecipes)
-        }
+        fun newInstance(listRecentRecipes: MutableList<Recipe>) =
+            ViewMoreRecentRecipesFragment().apply {
+                arguments = bundleOf(LIST_RECENT_RECIPES to listRecentRecipes)
+            }
     }
 }
