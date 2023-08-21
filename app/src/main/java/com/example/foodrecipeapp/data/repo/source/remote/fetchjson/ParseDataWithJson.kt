@@ -38,4 +38,13 @@ class ParseDataWithJson(private val fetchDataType: Int) {
         }
         return null
     }
+
+    fun parseJsonToDataDetail(jsonObject: JSONObject?): FetchDataResult<Any> {
+        return try {
+            val item = ParseJsonToObjectDetail().parseJsonToRecipeObject(jsonObject)
+            FetchDataResult.Success(item, fetchDataType)
+        } catch (e: JSONException) {
+            FetchDataResult.Error(e)
+        }
+    }
 }

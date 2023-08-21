@@ -20,19 +20,18 @@ class FavouritePresenter(
     }
 
     override fun setView(view: FavouriteContract.View?) {
-        // TODO("Not yet implemented")
+        this.view = view
     }
 
     override fun getListFavouritesRecipes(viewLifecycleOwner: LifecycleOwner) {
         recipeRepo?.getListFavouritesRecipes(
             object :
                 OnResultListener<FetchDataResult<MutableList<Any>>> {
-                override fun onSuccess(dataResult: FetchDataResult<MutableList<Any>>) {
+                override fun onSuccess(dataResult: FetchDataResult<Any>) {
                     when (dataResult) {
                         is FetchDataResult.Success -> {
-                            view?.onGetFavouritesRecipes(dataResult.data)
+                            view?.onGetFavouritesRecipes(dataResult.data as MutableList<Any>)
                         }
-
                         is FetchDataResult.Error -> {
                             view?.onError(dataResult.exception)
                         }

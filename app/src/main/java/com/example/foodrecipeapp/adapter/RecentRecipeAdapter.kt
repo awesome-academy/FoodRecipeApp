@@ -19,7 +19,7 @@ class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecip
     }
 
     override fun getItemCount(): Int {
-        return minOf(MAX_ITEM_COUNT, listRecentRecipes.size)
+        return minOf(MAX_ITEM_SHOW_REVIEW, listRecentRecipes.size)
     }
 
     override fun onBindViewHolder(holder: RecentRecipeViewHolder, position: Int) {
@@ -49,6 +49,6 @@ class RecentRecipeAdapter : RecyclerView.Adapter<RecentRecipeAdapter.RecentRecip
     }
 
     companion object {
-        private const val MAX_ITEM_COUNT = 5
+        private const val MAX_ITEM_SHOW_REVIEW = 5
     }
 }

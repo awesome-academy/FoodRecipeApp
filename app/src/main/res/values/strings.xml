@@ -52,4 +52,12 @@
     <string name="recipe_detail">Recipe Detail</string>
     <string name="bookmark_recipe">Successfully bookmarked to favorite recipes list</string>
     <string name="unmark_recipe">Successfully unmarked to favorite recipes list</string>
+    <string name="view_all_recipes">View All Recipes</string>
+    <string name="view_all_recent_recipes">View All Recent Recipes</string>
+    <string name="no_recipe_founded">No recipe founded</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="procedure">Procedure</string>
+    <string name="items">10 Items</string>
+    <string name="green_apple">Green Apple</string>
+    <string name="number_green_apple">2 Green Apple</string>
 </resources>
