@@ -7,9 +7,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_container"
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_356"
-        android:layout_marginEnd="@dimen/dp_6"
+        android:layout_width="@dimen/dp_170"
+        android:layout_height="@dimen/dp_270"
+        android:layout_marginHorizontal="@dimen/dp_6"
         android:layout_marginBottom="@dimen/dp_10"
         app:cardBackgroundColor="@color/light_yellow"
         app:cardCornerRadius="@dimen/dp_20"
@@ -25,50 +25,50 @@
             android:id="@+id/linear_layout_recipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/dp_14"
+            android:layout_marginHorizontal="@dimen/dp_4"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_food"
-                android:layout_width="@dimen/dp_120"
-                android:layout_height="@dimen/dp_120"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/dp_10"
                 android:src="@drawable/food_icon"
                 app:civ_border_color="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.025" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:maxLines="2"
-                android:ellipsize="marquee"
                 android:layout_marginTop="@dimen/dp_30"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/classic_greek_salad"
                 android:textAlignment="center"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.358"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintVertical_bias="0.393"
+                tools:layout_editor_absoluteX="-1dp" />
 
             <ImageView
                 android:id="@+id/img_serving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_19"
+                android:layout_height="@dimen/dp_19"
                 android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/dp_70"
                 android:src="@drawable/baseline_room_service_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.583"
+                app:layout_constraintVertical_bias="0.436"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -76,16 +76,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/dp_70"
                 android:layout_toEndOf="@id/img_serving"
                 android:text="@string/serving"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.478"
+                app:layout_constraintVertical_bias="0.445"
                 tools:ignore="RelativeOverlap" />
 
             <TextView
@@ -96,23 +96,24 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/dp_70"
                 android:text="@string/total_servings"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.478"
+                app:layout_constraintVertical_bias="0.445"
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/img_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
                 android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/dp_70"
                 android:src="@drawable/baseline_thumb_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.684"
+                app:layout_constraintVertical_bias="0.554"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -120,16 +121,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/dp_70"
                 android:layout_toEndOf="@id/img_like"
                 android:text="@string/like"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/img_like"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.604"
+                app:layout_constraintVertical_bias="0.559"
                 tools:ignore="RelativeOverlap" />
 
             <TextView
@@ -140,23 +141,24 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/dp_70"
                 android:text="@string/total_likes"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.604"
+                app:layout_constraintVertical_bias="0.559"
                 tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/img_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
                 android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/dp_70"
                 android:src="@drawable/baseline_access_time_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.777"
+                app:layout_constraintVertical_bias="0.675"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -164,16 +166,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/dp_70"
                 android:layout_toEndOf="@id/img_time"
                 android:text="@string/time"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.720"
+                app:layout_constraintVertical_bias="0.679"
                 tools:ignore="RelativeOverlap" />
 
             <TextView
@@ -184,18 +186,18 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/dp_70"
                 android:text="@string/time_servings"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.720"
+                app:layout_constraintVertical_bias="0.679"
                 tools:ignore="RelativeOverlap" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_favourite"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
                 android:backgroundTint="@color/white"
                 android:insetLeft="@dimen/dp_0"
                 android:insetTop="@dimen/dp_0"
@@ -209,10 +211,10 @@
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.907"
+                app:layout_constraintHorizontal_bias="0.903"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.95"
+                app:layout_constraintVertical_bias="0.933"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
