@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_6"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:layout_marginBottom="@dimen/dp_6"
+    android:backgroundTint="@color/light_yellow"
+    app:cardCornerRadius="@dimen/dp_10"
+    app:cardElevation="@dimen/dp_6">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/dp_6"
+        android:paddingVertical="@dimen/dp_8">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            app:cardCornerRadius="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginVertical="@dimen/dp_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardElevation="@dimen/dp_4">
+
+            <ImageView
+                android:id="@+id/img_food"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="@dimen/dp_46"
+                android:scaleType="centerCrop"
+                android:src="@drawable/green_apple"
+                tools:ignore="ContentDescription"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_ingredient_name"
+            android:layout_width="@dimen/dp_160"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:maxLines="3"
+            android:text="@string/green_apple"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.404"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.509" />
+
+        <TextView
+            android:id="@+id/tv_ingredient_quantity"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:maxLines="3"
+            android:text="@string/number_green_apple"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.518" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

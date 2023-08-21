@@ -31,7 +31,7 @@ class HomeChildAdapter(
     }
 
     private val recentRecipeAdapter: RecentRecipeAdapter by lazy {
-        RecentRecipeAdapter()
+        RecentRecipeAdapter(recipeItemClickListener)
     }
 
     private val categoryAdapter: CategoryAdapter by lazy {

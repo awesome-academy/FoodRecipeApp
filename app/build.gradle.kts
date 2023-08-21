@@ -44,8 +44,8 @@ android {
             buildConfigField("String", "BASE_URL_RECIPES", "\"${property("BASE_URL_RECIPES")}\"")
             buildConfigField(
                 "String",
-                "BASE_URL_FOOD_INGREDIENTS",
-                "\"${property("BASE_URL_FOOD_INGREDIENTS")}\""
+                "BASE_URL_IMAGE_INGREDIENT",
+                "\"${property("BASE_URL_IMAGE_INGREDIENT")}\""
             )
 
             isMinifyEnabled = false
@@ -64,8 +64,8 @@ android {
             buildConfigField("String", "BASE_URL_RECIPES", "\"${property("BASE_URL_RECIPES")}\"")
             buildConfigField(
                 "String",
-                "BASE_URL_FOOD_INGREDIENTS",
-                "\"${property("BASE_URL_FOOD_INGREDIENTS")}\""
+                "BASE_URL_IMAGE_INGREDIENT",
+                "\"${property("BASE_URL_IMAGE_INGREDIENT")}\""
             )
         }
     }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_view_more_recipes_container"
     android:background="@color/background_yellow"
     tools:context=".screen.viewmore.ViewMoreRecipesFragment">
 
@@ -49,6 +50,7 @@
         tools:ignore="TextSizeCheck">
 
         <androidx.appcompat.widget.SearchView
+            android:background="@color/light_yellow"
             android:id="@+id/search_recipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
