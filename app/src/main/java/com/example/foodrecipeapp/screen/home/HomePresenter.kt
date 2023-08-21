@@ -1,12 +1,15 @@
 package com.example.foodrecipeapp.screen.home
 
+import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.data.repo.FetchDataResult
 import com.example.foodrecipeapp.data.repo.RecipeRepo
+import com.example.foodrecipeapp.enum.CategoryPresenterType
 import com.example.foodrecipeapp.listener.OnResultListener
+import com.example.foodrecipeapp.presenter.CategoryPresenter
 
 class HomePresenter(
     private val recipeRepo: RecipeRepo?
-) : HomeContract.Presenter {
+) : HomeContract.Presenter, CategoryPresenter {
 
     private var view: HomeContract.View? = null
 
@@ -24,13 +27,13 @@ class HomePresenter(
 
     override fun getRecipes() {
         recipeRepo?.getRecipesRemote(object : OnResultListener<FetchDataResult<MutableList<Any>>> {
-            override fun onSuccess(dataResult: FetchDataResult<MutableList<Any>>) {
+            override fun onSuccess(dataResult: FetchDataResult<Any>) {
                 when (dataResult) {
                     is FetchDataResult.Success -> {
                         if (dataResult.fetchDataType == FetchDataResult.FETCH_TYPE_RANDOM_RECIPE) {
-                            view?.onGetRandomRecipesSuccess(dataResult.data)
+                            view?.onGetRandomRecipesSuccess(dataResult.data as MutableList<Any>)
                         } else {
-                            view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
+                            view?.onGetRandomVietnameseRecipesSuccess(dataResult.data as MutableList<Any>)
                         }
                     }
 
@@ -48,13 +51,13 @@ class HomePresenter(
         recipeRepo?.searchRecipesRemote(
             object :
                 OnResultListener<FetchDataResult<MutableList<Any>>> {
-                override fun onSuccess(dataResult: FetchDataResult<MutableList<Any>>) {
+                override fun onSuccess(dataResult: FetchDataResult<Any>) {
                     when (dataResult) {
                         is FetchDataResult.Success -> {
                             if (dataResult.fetchDataType == FetchDataResult.FETCH_TYPE_RANDOM_RECIPE) {
-                                view?.onGetRandomRecipesSuccess(dataResult.data)
+                                view?.onGetRandomRecipesSuccess(dataResult.data as MutableList<Any>)
                             } else {
-                                view?.onGetRandomVietnameseRecipesSuccess(dataResult.data)
+                                view?.onGetRandomVietnameseRecipesSuccess(dataResult.data as MutableList<Any>)
                             }
                         }
                         is FetchDataResult.Error -> view?.onError(dataResult.exception)
@@ -67,5 +70,21 @@ class HomePresenter(
             },
             searchValue
         )
+    }
+
+    override fun filterCategory(category: String, listRecipes: MutableList<Recipe>) {
+        // TODO("Not yet implemented")
+    }
+
+    override fun getPresenterType(): CategoryPresenterType {
+        return CategoryPresenterType.HOME_PRESENTER
+    }
+
+    override fun viewMoreRecipes() {
+        view?.onViewMoreRecipes()
+    }
+
+    override fun viewMoreRecentRecipes() {
+        view?.onViewMoreRecentRecipes()
     }
 }

@@ -11,6 +11,8 @@ class HomeContract {
         fun onGetRandomRecipesSuccess(listRecipes: MutableList<Any>)
         fun onGetRandomVietnameseRecipesSuccess(listRecipes: MutableList<Any>)
         fun onSearchRecipe(searchValue: String)
+        fun onViewMoreRecipes()
+        fun onViewMoreRecentRecipes()
         fun onError(exception: Exception?)
     }
 
@@ -20,5 +22,7 @@ class HomeContract {
     interface Presenter : BasePresenter<View> {
         fun getRecipes()
         fun searchRecipes(searchValue: String)
+        fun viewMoreRecipes()
+        fun viewMoreRecentRecipes()
     }
 }

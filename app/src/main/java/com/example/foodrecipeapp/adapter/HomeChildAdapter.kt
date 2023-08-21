@@ -35,7 +35,7 @@ class HomeChildAdapter(
     }
 
     private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(presenter)
+        CategoryAdapter(presenter, null)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -88,7 +88,8 @@ class HomeChildAdapter(
 
     private fun getListCategories(): MutableList<String> {
         val categoriesArray = resources.getStringArray(R.array.categories)
-        return categoriesArray.toMutableList()
+
+        return categoriesArray.sorted().toMutableList()
     }
 
     fun setRandomListRecipes(listRecipes: MutableList<Recipe>) {
@@ -143,6 +144,10 @@ class HomeChildAdapter(
             binding.rcvCategory.adapter = categoryAdapter
 
             binding.rcvRecipes.adapter = recipeAdapter
+
+            binding.tvSeeAll.setOnClickListener {
+                presenter.viewMoreRecipes()
+            }
         }
     }
 
@@ -150,6 +155,10 @@ class HomeChildAdapter(
         BaseViewHolder<HomeChild>(binding) {
         override fun bindData(itemBinding: HomeChild) {
             binding.rcvRecentRecipes.adapter = recentRecipeAdapter
+
+            binding.tvSeeAll.setOnClickListener {
+                presenter.viewMoreRecentRecipes()
+            }
         }
     }
 

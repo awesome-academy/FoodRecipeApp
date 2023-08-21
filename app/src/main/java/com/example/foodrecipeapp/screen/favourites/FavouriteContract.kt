@@ -1,6 +1,7 @@
 package com.example.foodrecipeapp.screen.favourites
 
 import androidx.lifecycle.LifecycleOwner
+import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.utils.base.BasePresenter
 import java.lang.Exception
 
@@ -10,6 +11,7 @@ class FavouriteContract {
      */
     interface View {
         fun onGetFavouritesRecipes(listFavouritesRecipes: MutableList<Any>)
+        fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Any>)
         fun onError(exception: Exception?)
     }
 
@@ -18,6 +20,6 @@ class FavouriteContract {
      */
     interface Presenter : BasePresenter<View> {
         fun getListFavouritesRecipes(viewLifecycleOwner: LifecycleOwner)
-        fun filterCategory(category: String)
+        fun filterCategory(category: String, listRecipes: MutableList<Recipe>)
     }
 }

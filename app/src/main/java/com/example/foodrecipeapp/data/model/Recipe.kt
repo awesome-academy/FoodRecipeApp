@@ -40,7 +40,19 @@ data class Recipe(
     var analyzedInstructions: MutableList<AnalyzedInstruction> = mutableListOf(),
     var spoonacularSourceUrl: String = "",
     var isFavourite: Boolean = false
-) : Parcelable
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+
+        val recipe = other as? Recipe
+        return id == recipe?.id
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+}
 
 object RecipeEntry {
     const val RECIPES_OBJECT = "recipes"

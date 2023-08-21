@@ -3,6 +3,8 @@ package com.example.foodrecipeapp.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.data.model.Recipe
@@ -34,8 +36,26 @@ class FavouriteAdapter : RecyclerView.Adapter<FavouriteAdapter.FavouriteViewHold
         notifyDataSetChanged()
     }
 
-    private fun handleClickFavouriteButton() {
-        // TODO("Not yet implemented")
+    private fun handleClickFavouriteButton(binding: ItemFavouriteRecipeBinding, recipe: Recipe) {
+        val builder = AlertDialog.Builder(binding.root.context).apply {
+            setTitle(R.string.alert_title)
+            setIcon(R.drawable.baseline_delete_forever_24)
+            setMessage(R.string.alert_message)
+            setCancelable(true)
+            setPositiveButton(R.string.yes_choice) { _, _ ->
+                confirmRemoveFavouriteRecipe(recipe)
+                Toast.makeText(context, R.string.confirm_unmarked, Toast.LENGTH_SHORT).show()
+            }
+            setNegativeButton(R.string.no_choice) { dialogInterface, _ -> dialogInterface?.dismiss() }
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun confirmRemoveFavouriteRecipe(recipe: Recipe) {
+        DataLocalManager.removeFavouriteRecipe(recipe)
+        notifyDataSetChanged()
     }
 
     inner class FavouriteViewHolder(private val binding: ItemFavouriteRecipeBinding) :
@@ -74,7 +94,7 @@ class FavouriteAdapter : RecyclerView.Adapter<FavouriteAdapter.FavouriteViewHold
             }
 
             binding.btnFavourite.setOnClickListener {
-                handleClickFavouriteButton()
+                handleClickFavouriteButton(binding, recipe)
             }
         }
     }
