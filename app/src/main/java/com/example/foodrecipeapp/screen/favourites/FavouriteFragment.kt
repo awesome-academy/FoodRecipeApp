@@ -3,6 +3,7 @@ package com.example.foodrecipeapp.screen.favourites
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.foodrecipeapp.R
 import com.example.foodrecipeapp.adapter.CategoryAdapter
 import com.example.foodrecipeapp.adapter.FavouriteAdapter
@@ -20,6 +21,7 @@ class FavouriteFragment :
     OnItemRecyclerViewClickListener<Recipe> {
 
     private lateinit var favouritePresenter: FavouritePresenter
+    private var listRecipes: MutableList<Recipe> = mutableListOf()
 
     override fun createBindingFragment(
         inflater: LayoutInflater,
@@ -33,7 +35,7 @@ class FavouriteFragment :
     }
 
     private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(null)
+        CategoryAdapter(favouritePresenter, listRecipes)
     }
 
     override fun initData() {
@@ -46,9 +48,6 @@ class FavouriteFragment :
 
     override fun initView() {
         binding.rcvFavouriteRecipes.adapter = favouriteAdapter
-
-        categoryAdapter.setData(getListCategories())
-        binding.rcvCategory.adapter = categoryAdapter
     }
 
     override fun onItemClick(item: Recipe) {
@@ -64,11 +63,30 @@ class FavouriteFragment :
             }
         }
 
+        listRecipes = convertedList
+
+        categoryAdapter.setData(getListCategories())
+        binding.rcvCategory.adapter = categoryAdapter
+
+        updateFavouritesList(convertedList)
+    }
+
+    override fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Any>) {
+        val convertedList: MutableList<Recipe> = mutableListOf()
+
+        for (favouriteRecipe in listFavouritesRecipes) {
+            if (favouriteRecipe is Recipe) {
+                convertedList.add(favouriteRecipe)
+            }
+        }
+
+        listRecipes = convertedList
+
         updateFavouritesList(convertedList)
     }
 
     override fun onError(exception: Exception?) {
-        // TODO("Not yet implemented")
+        Toast.makeText(context, exception?.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getListCategories(): MutableList<String> {
@@ -83,12 +101,10 @@ class FavouriteFragment :
         if (totalFavouriteRecipes == 0) {
             binding.tvNoFavouriteRecipeFound.visibility = View.VISIBLE
             binding.imgNoFavouriteRecipeFound.visibility = View.VISIBLE
-            binding.rcvCategory.visibility = View.GONE
             binding.rcvFavouriteRecipes.visibility = View.GONE
         } else {
             binding.tvNoFavouriteRecipeFound.visibility = View.GONE
             binding.imgNoFavouriteRecipeFound.visibility = View.GONE
-            binding.rcvCategory.visibility = View.VISIBLE
             binding.rcvFavouriteRecipes.visibility = View.VISIBLE
 
             favouriteAdapter.setData(favourites)

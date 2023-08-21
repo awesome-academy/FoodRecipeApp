@@ -11,17 +11,27 @@ import com.example.foodrecipeapp.data.model.Recipe
 import com.example.foodrecipeapp.data.repo.RecipeRepo
 import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentHomeBinding
+import com.example.foodrecipeapp.listener.OnBackPressedListener
 import com.example.foodrecipeapp.listener.OnItemRecyclerViewClickListener
 import com.example.foodrecipeapp.listener.OnRecipeItemClickListener
+import com.example.foodrecipeapp.screen.detail.RecipeDetailFragment
+import com.example.foodrecipeapp.screen.viewmore.ViewMoreRecentRecipesFragment
+import com.example.foodrecipeapp.screen.viewmore.ViewMoreRecipesFragment
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
+import com.example.foodrecipeapp.utils.ext.addFragment
 
+@Suppress("TooManyFunctions")
 class HomeFragment :
     BaseViewBindingFragment<FragmentHomeBinding>(),
     HomeContract.View,
     OnItemRecyclerViewClickListener<Recipe>,
-    OnRecipeItemClickListener {
+    OnRecipeItemClickListener,
+    OnBackPressedListener {
 
+    private lateinit var dialog: ProgressDialog
     private lateinit var homePresenter: HomePresenter
+    private var listRecipes: MutableList<Recipe> = mutableListOf()
+    private var listRecentRecipes: MutableList<Recipe> = mutableListOf()
 
     private val homeChildAdapter: HomeChildAdapter by lazy {
         HomeChildAdapter(
@@ -31,22 +41,11 @@ class HomeFragment :
         )
     }
 
-    private lateinit var dialog: ProgressDialog
-
     override fun createBindingFragment(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater, container, false)
-    }
-
-    override fun initView() {
-        homeChildAdapter.setData(getListHomeChild())
-        binding.rcvHomeParent.adapter = homeChildAdapter
-
-        dialog = ProgressDialog(context)
-        dialog.setTitle(getString(R.string.loading))
-        dialog.show()
     }
 
     override fun initData() {
@@ -55,10 +54,16 @@ class HomeFragment :
         )
         homePresenter.setView(this)
         homePresenter.getRecipes()
+
+        dialog = ProgressDialog(context).apply {
+            setTitle(getString(R.string.loading))
+            show()
+        }
     }
 
-    override fun onItemClick(item: Recipe?) {
-        // TODO("Not yet implemented")
+    override fun initView() {
+        homeChildAdapter.setData(getListHomeChild())
+        binding.rcvHomeParent.adapter = homeChildAdapter
     }
 
     override fun onGetRandomRecipesSuccess(listRecipes: MutableList<Any>) {
@@ -70,6 +75,7 @@ class HomeFragment :
             }
         }
 
+        this.listRecipes = convertedList
         homeChildAdapter.setRandomListRecipes(convertedList)
         dialog.dismiss()
     }
@@ -83,21 +89,48 @@ class HomeFragment :
             }
         }
 
+        this.listRecentRecipes = convertedList
         homeChildAdapter.setRandomListVietnameseRecipes(convertedList)
         dialog.dismiss()
-    }
-
-    override fun onError(exception: Exception?) {
-        Toast.makeText(context, exception?.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onSearchRecipe(searchValue: String) {
         homePresenter.searchRecipes(searchValue)
     }
 
+    override fun onViewMoreRecipes() {
+        val viewMoreRecipesFragment = ViewMoreRecipesFragment.newInstance(listRecipes).apply {
+            setOnBackListener(this@HomeFragment)
+        }
+        addFragment(
+            R.id.fragment_home_container,
+            viewMoreRecipesFragment,
+            true
+        )
+    }
+
+    override fun onViewMoreRecentRecipes() {
+        addFragment(
+            R.id.fragment_home_container,
+            ViewMoreRecentRecipesFragment.newInstance(listRecentRecipes),
+            true
+        )
+    }
+
+    override fun onError(exception: Exception?) {
+        Toast.makeText(context, exception?.message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onRecipeImageClick(recipe: Recipe) {
-        Toast.makeText(requireContext(), recipe.title, Toast.LENGTH_SHORT).show()
         onItemClick(recipe)
+    }
+
+    override fun onItemClick(item: Recipe) {
+        addFragment(R.id.fragment_home_container, RecipeDetailFragment.newInstance(item.id), true)
+    }
+
+    override fun onBackPressedWithData(listRecipes: MutableList<Recipe>) {
+        homeChildAdapter.setRandomListRecipes(listRecipes)
     }
 
     private fun getListHomeChild(): MutableList<HomeChild> {

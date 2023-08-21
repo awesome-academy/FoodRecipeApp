@@ -32,7 +32,7 @@ class GetJsonFromUrl<T : Any> constructor(
     private fun callApiGetRandomRecipes() {
         executor.execute {
             val url =
-                "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vegetarian,dessert${Constant.BASE_API_KEY}"
+                "$urlString/random?number=$DEFAULT_RECIPE_NUMBER&tags=vegetarian,appetizer${Constant.BASE_API_KEY}"
             val responseJson = getJsonDataFromUrl(url)
             val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RANDOM_RECIPE)
                 .parseJsonToData(JSONObject(responseJson), keyEntity)
@@ -86,6 +86,25 @@ class GetJsonFromUrl<T : Any> constructor(
         }
     }
 
+    fun getRecipeDetail() {
+        executor.execute {
+            val url =
+                "$urlString/information?includeNutrition=$IS_INCLUDE_NUTRITION${Constant.BASE_API_KEY}"
+            val responseJson = getJsonDataFromUrl(url)
+            val data = ParseDataWithJson(FetchDataResult.FETCH_TYPE_RECIPE_DETAIL)
+                .parseJsonToDataDetail(JSONObject(responseJson))
+            handler.post {
+                try {
+                    data.let {
+                        listener.onSuccess(it)
+                    }
+                } catch (e: JSONException) {
+                    listener.onError(e)
+                }
+            }
+        }
+    }
+
     private fun getJsonDataFromUrl(urlString: String): String {
         val url = URL(urlString)
 
@@ -119,6 +138,7 @@ class GetJsonFromUrl<T : Any> constructor(
         private const val REQUEST_CONTENT_TYPE_PROPERTY = "Content-Type"
         private const val REQUEST_ACCEPT_PROPERTY = "Accept"
         private const val REQUEST_JSON_VALUE = "application/json"
-        private const val DEFAULT_RECIPE_NUMBER = 8
+        private const val DEFAULT_RECIPE_NUMBER = 20
+        private const val IS_INCLUDE_NUTRITION = false
     }
 }

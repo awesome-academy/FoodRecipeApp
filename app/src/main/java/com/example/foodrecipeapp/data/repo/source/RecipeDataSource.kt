@@ -22,14 +22,32 @@ interface RecipeDataSource {
      */
     interface Remote {
         fun getRecipesRemote(listener: OnResultListener<FetchDataResult<MutableList<Any>>>)
+        fun getListFavouritesRecipes(
+            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            viewLifecycleOwner: LifecycleOwner
+        )
+        fun getRecipeDetail(
+            listener: OnResultListener<FetchDataResult<Any>>,
+            recipeId: Int
+        )
         fun searchRecipesRemote(
             listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
             searchValue: String
         )
-
-        fun getListFavouritesRecipes(
+        fun searchRecipesInList(
             listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
-            viewLifecycleOwner: LifecycleOwner
+            searchValue: String,
+            listRecipes: MutableList<Recipe>
+        )
+        fun searchRecentRecipesInList(
+            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            searchValue: String,
+            listRecentRecipes: MutableList<Recipe>
+        )
+        fun filterRecipesByCategoryInList(
+            listener: OnResultListener<FetchDataResult<MutableList<Any>>>,
+            searchValue: String,
+            listRecentRecipes: MutableList<Recipe>
         )
     }
 }

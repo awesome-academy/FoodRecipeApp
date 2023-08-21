@@ -49,6 +49,11 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alert_title">Remove from favourite recipe</string>
+    <string name="alert_message">Are you sure to unmarked this recipe?</string>
+    <string name="confirm_unmarked">Successfully unmarked!</string>
+    <string name="yes_choice">Yes</string>
+    <string name="no_choice">No</string>
     <string name="recipe_detail">Recipe Detail</string>
     <string name="bookmark_recipe">Successfully bookmarked to favorite recipes list</string>
     <string name="unmark_recipe">Successfully unmarked to favorite recipes list</string>

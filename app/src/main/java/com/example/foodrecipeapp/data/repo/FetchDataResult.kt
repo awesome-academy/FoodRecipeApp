@@ -10,5 +10,9 @@ sealed class FetchDataResult<out T> {
         const val FETCH_TYPE_RANDOM_RECIPE = 1
         const val FETCH_TYPE_RANDOM_VIETNAMESE_RECIPE = 2
         const val FETCH_TYPE_FAVOURITE_RECIPES = 3
+        const val FETCH_TYPE_SEARCH_RECIPES = 4
+        const val FETCH_TYPE_SEARCH_RECENT_RECIPES = 5
+        const val FETCH_TYPE_RECIPE_DETAIL = 6
+        const val FETCH_TYPE_FILTER_FAVOURITE_RECIPES = 7
     }
 }
