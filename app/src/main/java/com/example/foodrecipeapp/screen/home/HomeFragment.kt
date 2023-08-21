@@ -66,31 +66,15 @@ class HomeFragment :
         binding.rcvHomeParent.adapter = homeChildAdapter
     }
 
-    override fun onGetRandomRecipesSuccess(listRecipes: MutableList<Any>) {
-        val convertedList: MutableList<Recipe> = mutableListOf()
-
-        for (item in listRecipes) {
-            if (item is Recipe) {
-                convertedList.add(item)
-            }
-        }
-
-        this.listRecipes = convertedList
-        homeChildAdapter.setRandomListRecipes(convertedList)
+    override fun onGetRandomRecipesSuccess(listRecipes: MutableList<Recipe>) {
+        this.listRecipes = listRecipes
+        homeChildAdapter.setRandomListRecipes(listRecipes)
         dialog.dismiss()
     }
 
-    override fun onGetRandomVietnameseRecipesSuccess(listRecipes: MutableList<Any>) {
-        val convertedList: MutableList<Recipe> = mutableListOf()
-
-        for (item in listRecipes) {
-            if (item is Recipe) {
-                convertedList.add(item)
-            }
-        }
-
-        this.listRecentRecipes = convertedList
-        homeChildAdapter.setRandomListVietnameseRecipes(convertedList)
+    override fun onGetRandomVietnameseRecipesSuccess(listRecipes: MutableList<Recipe>) {
+        this.listRecentRecipes = listRecipes
+        homeChildAdapter.setRandomListVietnameseRecipes(listRecipes)
         dialog.dismiss()
     }
 

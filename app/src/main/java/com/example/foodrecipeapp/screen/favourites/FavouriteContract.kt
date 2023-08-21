@@ -10,8 +10,8 @@ class FavouriteContract {
      * View
      */
     interface View {
-        fun onGetFavouritesRecipes(listFavouritesRecipes: MutableList<Any>)
-        fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Any>)
+        fun onGetFavouritesRecipes(listFavouritesRecipes: MutableList<Recipe>)
+        fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Recipe>)
         fun onError(exception: Exception?)
     }
 

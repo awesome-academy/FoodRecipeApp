@@ -7,8 +7,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import com.example.foodrecipeapp.adapter.ViewMoreRecipeAdapter
 import com.example.foodrecipeapp.data.model.Recipe
-import com.example.foodrecipeapp.data.repo.RecipeRepo
-import com.example.foodrecipeapp.data.repo.source.remote.RecipeRemoteDataSource
 import com.example.foodrecipeapp.databinding.FragmentViewMoreRecipesBinding
 import com.example.foodrecipeapp.listener.OnBackPressedListener
 import com.example.foodrecipeapp.utils.base.BaseViewBindingFragment
@@ -34,9 +32,7 @@ class ViewMoreRecipesFragment :
     }
 
     override fun initData() {
-        viewMoreRecipesPresenter = ViewMoreRecipesPresenter(
-            RecipeRepo.getInstanceRecipeRemoteRepo(RecipeRemoteDataSource.getInstance())
-        )
+        viewMoreRecipesPresenter = ViewMoreRecipesPresenter()
         viewMoreRecipesPresenter.setView(this)
     }
 
@@ -75,7 +71,7 @@ class ViewMoreRecipesFragment :
         // TODO("Not yet implemented")
     }
 
-    override fun onSearchRecipesInList(listRecipes: MutableList<Any>) {
+    override fun onSearchRecipesInList(listRecipes: MutableList<Recipe>) {
         // TODO("Not yet implemented")
     }
 

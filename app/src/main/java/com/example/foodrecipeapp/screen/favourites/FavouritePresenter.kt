@@ -29,11 +29,11 @@ class FavouritePresenter(
     override fun getListFavouritesRecipes(viewLifecycleOwner: LifecycleOwner) {
         recipeRepo?.getListFavouritesRecipes(
             object :
-                OnResultListener<FetchDataResult<MutableList<Any>>> {
-                override fun onSuccess(dataResult: FetchDataResult<Any>) {
+                OnResultListener<MutableList<Recipe>> {
+                override fun onSuccess(dataResult: FetchDataResult<MutableList<Recipe>>) {
                     when (dataResult) {
                         is FetchDataResult.Success -> {
-                            view?.onGetFavouritesRecipes(dataResult.data as MutableList<Any>)
+                            view?.onGetFavouritesRecipes(dataResult.data)
                         }
 
                         is FetchDataResult.Error -> {
@@ -57,12 +57,12 @@ class FavouritePresenter(
     override fun filterCategory(category: String, listRecipes: MutableList<Recipe>) {
         recipeRepo?.filterRecipesByCategoryInList(
             object :
-                OnResultListener<FetchDataResult<MutableList<Any>>> {
-                override fun onSuccess(dataResult: FetchDataResult<Any>) {
+                OnResultListener<MutableList<Recipe>> {
+                override fun onSuccess(dataResult: FetchDataResult<MutableList<Recipe>>) {
                     when (dataResult) {
                         is FetchDataResult.Success -> {
                             if (dataResult.fetchDataType == FetchDataResult.FETCH_TYPE_FILTER_FAVOURITE_RECIPES) {
-                                view?.onFilterFavouriteRecipes(dataResult.data as MutableList<Any>)
+                                view?.onFilterFavouriteRecipes(dataResult.data)
                             }
                         }
                         is FetchDataResult.Error -> view?.onError(dataResult.exception)

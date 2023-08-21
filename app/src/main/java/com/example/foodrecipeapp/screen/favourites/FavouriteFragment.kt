@@ -54,35 +54,18 @@ class FavouriteFragment :
         // TODO("Not yet implemented")
     }
 
-    override fun onGetFavouritesRecipes(listFavouritesRecipes: MutableList<Any>) {
-        val convertedList: MutableList<Recipe> = mutableListOf()
-
-        for (favouriteRecipe in listFavouritesRecipes) {
-            if (favouriteRecipe is Recipe) {
-                convertedList.add(favouriteRecipe)
-            }
-        }
-
-        listRecipes = convertedList
+    override fun onGetFavouritesRecipes(listFavouritesRecipes: MutableList<Recipe>) {
+        listRecipes = listFavouritesRecipes
 
         categoryAdapter.setData(getListCategories())
         binding.rcvCategory.adapter = categoryAdapter
 
-        updateFavouritesList(convertedList)
+        updateFavouritesList(listFavouritesRecipes)
     }
 
-    override fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Any>) {
-        val convertedList: MutableList<Recipe> = mutableListOf()
-
-        for (favouriteRecipe in listFavouritesRecipes) {
-            if (favouriteRecipe is Recipe) {
-                convertedList.add(favouriteRecipe)
-            }
-        }
-
-        listRecipes = convertedList
-
-        updateFavouritesList(convertedList)
+    override fun onFilterFavouriteRecipes(listFavouritesRecipes: MutableList<Recipe>) {
+        listRecipes = listFavouritesRecipes
+        updateFavouritesList(listFavouritesRecipes)
     }
 
     override fun onError(exception: Exception?) {
